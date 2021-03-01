@@ -11,3 +11,7 @@ logs
 node_modules
 bower_components
 # End of https://www.toptal.com/developers/gitignore/api/react
+
+.vscode/
+package-lock.json
+dist/
