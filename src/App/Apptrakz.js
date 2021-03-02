@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { Auth } from '../components/Auth';
-import { Register } from '../components/Register';
+import { Login } from '../components/auth/Login';
+import { NavBar } from '../components/nav/NavBar';
+import { Register } from '../components/auth/Register';
 
 import './App.css';
 
@@ -9,13 +10,15 @@ export const Apptrakz = () => (
   <>
     <Route render={() => {
       if (localStorage.getItem('apptrakz_token')) {
-        return <> </>;
+        return <>
+          <Route component={NavBar} />
+        </>;
       }
 
       return <Redirect to="/login" />;
     }} />
 
     <Route path="/register" render={Register} />
-    <Route path="/login" render={Auth} />
+    <Route path="/login" render={Login} />
   </>
 );
