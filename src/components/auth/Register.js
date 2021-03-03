@@ -1,9 +1,13 @@
 /* eslint-disable max-len */
 /* eslint-disable import/prefer-default-export */
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { MismatchPasswords } from '../alerts/MismatchPasswords';
+
 export const Register = (props) => {
+  const [showMismatchPasswordModal, setShowMismatchPasswordModal] = useState(false);
+  const [ifMismatchPassword, setIfMismatchPassword] = useState(false);
   const username = React.createRef();
   const email = React.createRef();
   const password = React.createRef();
@@ -40,10 +44,13 @@ export const Register = (props) => {
           }
         });
     }
-    console.error('ERROR: PASSWORDS DO NOT MATCH');
+    setShowMismatchPasswordModal(true);
+    setIfMismatchPassword(true);
   };
 
   return (
+    <>
+  <MismatchPasswords showMismatchPasswordModal={showMismatchPasswordModal} setShowMismatchPasswordModal={setShowMismatchPasswordModal} {...props} />
 <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
   <div className="sm:mx-auto sm:w-full sm:max-w-md">
     <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
@@ -93,20 +100,24 @@ export const Register = (props) => {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          {/* <label htmlFor="password" className="block text-sm font-medium text-gray-700"> */}
+          <label htmlFor="password" className={`block text-sm font-medium ${ifMismatchPassword ? 'text-red-600' : 'text-gray-700'}`}>
             Password
           </label>
           <div className="mt-1">
-            <input ref={password} id="password" name="password" type="password" autoComplete="current-password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            <input ref={password} id="password" name="password" type="password" autoComplete="current-password" required className={`appearance-none block w-full px-3 py-2 border ${ifMismatchPassword ? 'border-red-600 shadow-error' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`} />
           </div>
         </div>
 
         <div>
-          <label htmlFor="verifyPassword" className="block text-sm font-medium text-gray-700">
+          {/* <label htmlFor="verifyPassword" className="block text-sm font-medium text-gray-700">
+            Verify Password
+          </label> */}
+          <label htmlFor="verifyPassword" className={`block text-sm font-medium ${ifMismatchPassword ? 'text-red-600' : 'text-gray-700'}`}>
             Verify Password
           </label>
           <div className="mt-1">
-            <input ref={verifyPassword} id="verifyPassword" name="verifyPassword" type="password" autoComplete="verify-password" required className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            <input ref={verifyPassword} id="verifyPassword" name="verifyPassword" type="password" autoComplete="verify-password" required className={`appearance-none block w-full px-3 py-2 border ${ifMismatchPassword ? 'border-red-600 shadow-error' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`} />
           </div>
         </div>
 
@@ -127,5 +138,6 @@ export const Register = (props) => {
     </div>
   </div>
 </div>
+</>
   );
 };
