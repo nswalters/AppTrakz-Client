@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Apptrakz } from './App/Apptrakz';
+
 import './assets/main.css';
-import App from './App/App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Apptrakz />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root'),
 );

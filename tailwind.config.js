@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
@@ -132,6 +132,7 @@ module.exports = {
       '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
       none: 'none',
+      error: '0 1px 3px 0px #DC2626',
     },
     container: {},
     cursor: {
@@ -852,5 +853,8 @@ module.exports = {
     wordBreak: ['responsive'],
     zIndex: ['responsive', 'focus-within', 'focus'],
   },
-  plugins: [],
-}
+  plugins: [
+    // eslint-disable-next-line global-require
+    require('@tailwindcss/forms'),
+  ],
+};
