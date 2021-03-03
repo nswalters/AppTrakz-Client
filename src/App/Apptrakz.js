@@ -18,11 +18,7 @@ export const Apptrakz = () => (
       return <Redirect to="/login" />;
     }} />
 
-    <Route path="/register">
-      <Register />
-    </Route>
-    <Route path="/login">
-      <Login />
-    </Route>
+    <Route path="/register" render={(props) => <Register {...props} />} />
+    <Route path="/login" render={(props) => <Login {...props} />} />
   </>
 );
