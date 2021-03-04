@@ -1,12 +1,21 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { Link } from 'react-router-dom';
+import { ProfileContext } from '../profile/ProfileProvider';
+
 import './NavBar.css';
 
 export const NavBar = (props) => {
+  const { userProfile, getProfile } = useContext(ProfileContext);
+
   const [isOpen, setIsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    getProfile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const path = props.history.location.pathname;
   const selectedNavClasses = 'border-indigo-500 text-gray-900';
@@ -77,7 +86,7 @@ export const NavBar = (props) => {
                                     <div>
                                         <button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu" aria-haspopup="true">
                                             <span className="sr-only">Open user menu</span>
-                                            <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                                            <img className="h-8 w-8 rounded-full" src={userProfile && userProfile.profile_image} alt="" />
                                         </button>
                                     </div>
                                     {/* <!--
@@ -100,7 +109,7 @@ export const NavBar = (props) => {
                                         leaveTo="transform opacity-0 scale-95"
                                     >
                                         <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                                            <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
+                                            <Link to="/user/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</Link>
                                             <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
                                             <a onClick={() => {
                                               localStorage.removeItem('apptrakz_token');
