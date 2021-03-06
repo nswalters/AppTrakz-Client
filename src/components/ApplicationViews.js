@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { Profile } from './profile/Profile';
+import { ApplicationListView } from './application/ApplicationListView';
+import { ApplicationProvider } from './application/ApplicationProvider';
 import { CompanyListView } from './company/CompanyListView';
 import { CompanyProvider } from './company/CompanyProvider';
 import { JobListView } from './job/JobListView';
@@ -23,5 +25,12 @@ export const ApplicationViews = () => (
         <JobListView />
       </Route>
     </JobProvider>
+
+    <ApplicationProvider>
+      <Route exact path="/applications">
+        <ApplicationListView />
+      </Route>
+    </ApplicationProvider>
+
   </>
 );
