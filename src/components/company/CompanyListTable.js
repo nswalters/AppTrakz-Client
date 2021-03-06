@@ -29,19 +29,19 @@ export const CompanyListTable = (props) => {
         {companyList.map((company, idx) => (
           // Alternate background colors of table rows
           <tr className={`${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+            <td className="px-4 py-4 whitespace-wrap text-sm font-medium text-gray-900">
               {companyList && company.name}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <td className="px-4 py-4 whitespace-wrap text-sm text-gray-500">
               {company.address1} {company.address2}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
               {company.city}, {company.state} {company.zipcode}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hover:underline">
+            <td className="px-4 py-4 whitespace-wrap text-sm text-gray-500 hover:underline">
               <a href={company.website}>{company.website}</a>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+            <td class="pr-4 py-4 whitespace-wrap text-sm font-medium">
               <a href="/" class="text-indigo-600 hover:text-indigo-900">Edit</a>
             </td>
           </tr>
