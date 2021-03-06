@@ -3,6 +3,8 @@ import { Route } from 'react-router-dom';
 import { Profile } from './profile/Profile';
 import { CompanyListView } from './company/CompanyListView';
 import { CompanyProvider } from './company/CompanyProvider';
+import { JobListView } from './job/JobListView';
+import { JobProvider } from './job/JobProvider';
 
 export const ApplicationViews = () => (
   <>
@@ -15,5 +17,11 @@ export const ApplicationViews = () => (
         <CompanyListView />
       </Route>
     </CompanyProvider>
+
+    <JobProvider>
+      <Route exact path="/jobs">
+        <JobListView />
+      </Route>
+    </JobProvider>
   </>
 );
