@@ -30,7 +30,7 @@ export const CompanyListView = (props) => {
         {/* Cards are shown on smaller screens (tablets or smaller) */}
         <div className="block container mx-auto mt-16 lg:hidden">
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {companyList && companyList.map((company) => <CompanyListCard company={company} />)}
+            {companyList && companyList.map((company) => <CompanyListCard key={company.id} company={company} />)}
           </ul>
         </div>
       </>

@@ -20,15 +20,15 @@ export const CompanyListTable = (props) => {
           <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             Website
           </th>
-          <th scope="col" class="relative px-6 py-3">
-            <span class="sr-only">Edit</span>
+          <th scope="col" className="relative px-6 py-3">
+            <span className="sr-only">Edit</span>
           </th>
         </tr>
       </thead>
       <tbody>
         {companyList.map((company, idx) => (
           // Alternate background colors of table rows
-          <tr className={`${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+          <tr key={company.id} className={`${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
             <td className="px-4 py-4 whitespace-wrap text-sm font-medium text-gray-900">
               {companyList && company.name}
             </td>
@@ -41,8 +41,8 @@ export const CompanyListTable = (props) => {
             <td className="px-4 py-4 whitespace-wrap text-sm text-gray-500 hover:underline">
               <a href={company.website}>{company.website}</a>
             </td>
-            <td class="pr-4 py-4 whitespace-wrap text-sm font-medium">
-              <a href="/" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+            <td className="pr-4 py-4 whitespace-wrap text-sm font-medium">
+              <a href="/" className="text-indigo-600 hover:text-indigo-900">Edit</a>
             </td>
           </tr>
         ))}

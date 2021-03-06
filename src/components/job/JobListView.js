@@ -29,7 +29,7 @@ export const JobListView = (props) => {
       {/* Cards are shown on smaller screens (tablets or smaller) */}
       <div className="block container mx-auto mt-16 lg:hidden">
         <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {jobList && jobList.map((job) => <JobListCard job={job} />)}
+          {jobList && jobList.map((job) => <JobListCard key={job.id} job={job} />)}
         </ul>
       </div>
     </>
