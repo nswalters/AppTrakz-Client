@@ -10,16 +10,19 @@ export const CompanyListTable = (props) => {
         <tr>
           <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             Name
-                    </th>
+          </th>
           <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             Address
-                    </th>
+          </th>
           <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             City, State, Zip
-                    </th>
+          </th>
           <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             Website
-                    </th>
+          </th>
+          <th scope="col" class="relative px-6 py-3">
+            <span class="sr-only">Edit</span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -37,6 +40,9 @@ export const CompanyListTable = (props) => {
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hover:underline">
               <a href={company.website}>{company.website}</a>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <a href="/" class="text-indigo-600 hover:text-indigo-900">Edit</a>
             </td>
           </tr>
         ))}
