@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ApplicationContext } from '../application/ApplicationProvider';
 import { JobContext } from './JobProvider';
 
@@ -61,8 +62,8 @@ export const JobDetails = (props) => {
                       <dt className="text-sm font-medium text-gray-500">
                         Company
                       </dt>
-                      <dd className="mt-1 text-sm text-gray-900">
-                        {singleJob.company && singleJob.company.name}
+                      <dd className="mt-1 text-sm text-gray-900 underline">
+                        <Link to={singleJob.company && singleJob.company.url}> {singleJob.company && singleJob.company.name}</Link>
                       </dd>
                     </div>
                     <div className="sm:col-span-1">
