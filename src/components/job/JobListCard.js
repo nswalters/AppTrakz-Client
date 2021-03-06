@@ -20,8 +20,8 @@ export const JobListCard = (props) => {
           <a href={job.url} className="text-gray-900 text-xl font-medium hover:underline">{job.role_title}</a>
           <p className="my-4 text-gray-700 text-md font-medium">{job.company.name}</p>
           <dl className="mt-2 flex-grow flex flex-col justify-end">
-            <dd class="mb-6">
-              <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{job.application.current_status.status.name}</span>
+            <dd className="mb-6">
+              <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{job.application.current_status.status.name}</span>
             </dd>
             <dt className="sr-only">Type, Salary</dt>
             <dd className="text-gray-500 text-md">

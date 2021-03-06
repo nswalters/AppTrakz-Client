@@ -26,15 +26,15 @@ export const JobListTable = (props) => {
           <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             Application Status
           </th>
-          <th scope="col" class="relative px-6 py-3">
-            <span class="sr-only">Edit</span>
+          <th scope="col" className="relative px-6 py-3">
+            <span className="sr-only">Edit</span>
           </th>
         </tr>
       </thead>
       <tbody>
         {jobList.map((job, idx) => (
           // Alternate background colors of table rows
-          <tr className={`${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+          <tr key={job.id} className={`${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
             <td className="px-4 py-4 whitespace-wrap text-sm font-medium text-gray-900">
               {jobList && job.role_title}
             </td>
@@ -51,10 +51,10 @@ export const JobListTable = (props) => {
               {job.company.name}
             </td>
             <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-              <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{job.application.current_status.status.name}</span>
+              <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{job.application.current_status.status.name}</span>
             </td>
-            <td class="pr-4 py-4 whitespace-wrap text-sm font-medium">
-              <a href="/" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+            <td className="pr-4 py-4 whitespace-wrap text-sm font-medium">
+              <a href="/" className="text-indigo-600 hover:text-indigo-900">Edit</a>
             </td>
           </tr>
         ))}

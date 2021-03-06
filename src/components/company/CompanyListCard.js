@@ -24,7 +24,7 @@ export const CompanyListCard = (props) => {
             <dt className="sr-only">City, State Zipcode</dt>
             <dd className="text-gray-500 text-md">{company.city}, {company.state} {company.zipcode}</dd>
             <dd className="mb-8">
-              <a href={`${company.website}`} class="text-gray-900 font-medium hover:text-gray-600 underline">Website</a>
+              <a href={`${company.website}`} className="text-gray-900 font-medium hover:text-gray-600 underline">Website</a>
             </dd>
           </dl>
         </div>
