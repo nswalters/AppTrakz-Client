@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const JobListTable = (props) => {
   const { jobList } = props;
@@ -36,7 +37,7 @@ export const JobListTable = (props) => {
           // Alternate background colors of table rows
           <tr key={job.id} className={`${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
             <td className="px-4 py-4 whitespace-wrap text-sm font-medium text-gray-900">
-              {jobList && job.role_title}
+              <Link to={jobList && job.url}>{jobList && job.role_title}</Link>
             </td>
             <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
               {job.type}

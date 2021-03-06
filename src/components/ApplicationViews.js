@@ -5,6 +5,7 @@ import { ApplicationListView } from './application/ApplicationListView';
 import { ApplicationProvider } from './application/ApplicationProvider';
 import { CompanyListView } from './company/CompanyListView';
 import { CompanyProvider } from './company/CompanyProvider';
+import { JobDetails } from './job/JobDetails';
 import { JobListView } from './job/JobListView';
 import { JobProvider } from './job/JobProvider';
 
@@ -24,6 +25,11 @@ export const ApplicationViews = () => (
       <Route exact path="/jobs">
         <JobListView />
       </Route>
+      <ApplicationProvider>
+        <Route exact path="/jobs/:jobId(\d+)" render={
+          (props) => <JobDetails {...props} />
+        } />
+      </ApplicationProvider>
     </JobProvider>
 
     <ApplicationProvider>
