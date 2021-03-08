@@ -52,7 +52,7 @@ export const JobListTable = (props) => {
               <Link to={job.company.url}>{job.company.name}</Link>
             </td>
             <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-              <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{job.application.current_status.status.name}</span>
+              <span className={`px-2 py-1 ${job.application && job.application.current_status.status.name ? 'text-green-800' : 'text-red-800'} text-xs font-medium ${job.application && job.application.current_status.status.name ? 'bg-green-100' : 'bg-red-100'} rounded-full`}>{job.application && job.application.current_status.status.name ? job.application.current_status.status.name : 'No Application'}</span>
             </td>
             <td className="pr-4 py-4 whitespace-wrap text-sm font-medium">
               <a href="/" className="text-indigo-600 hover:text-indigo-900">Edit</a>
