@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export const CompanyContext = React.createContext();
 
 export const CompanyProvider = (props) => {
-  const [companyList, setCompanyList] = useState({});
+  const [companyList, setCompanyList] = useState([]);
 
   // Get companies
   const getCompanies = () => {

@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const JobListCard = (props) => {
   const { job } = props;
@@ -18,7 +19,9 @@ export const JobListCard = (props) => {
         </div>
         <div className="flex-1 flex flex-col p-4">
           <a href={job.url} className="text-gray-900 text-xl font-medium hover:underline">{job.role_title}</a>
-          <p className="my-4 text-gray-700 text-md font-medium">{job.company.name}</p>
+          <p className="my-4 text-gray-700 text-md font-medium underline">
+            <Link to={job.company.url}>{job.company.name}</Link>
+          </p>
           <dl className="mt-2 flex-grow flex flex-col justify-end">
             <dd className="mb-6">
               <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{job.application.current_status.status.name}</span>
