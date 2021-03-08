@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import { Profile } from './profile/Profile';
 import { ApplicationListView } from './application/ApplicationListView';
 import { ApplicationProvider } from './application/ApplicationProvider';
+import { CompanyDetails } from './company/CompanyDetails';
 import { CompanyListView } from './company/CompanyListView';
 import { CompanyProvider } from './company/CompanyProvider';
 import { JobDetails } from './job/JobDetails';
@@ -19,6 +20,9 @@ export const ApplicationViews = () => (
       <Route exact path="/companies">
         <CompanyListView />
       </Route>
+      <Route exact path="/companies/:companyId(\d+)" render={
+        (props) => <CompanyDetails {...props} />
+      } />
     </CompanyProvider>
 
     <JobProvider>

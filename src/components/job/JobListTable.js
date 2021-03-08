@@ -48,8 +48,8 @@ export const JobListTable = (props) => {
             <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 underline text-center">
               <a href={job.post_link}>Link</a>
             </td>
-            <td className="px-4 py-4 whitespace-wrap text-sm text-gray-500 text-center">
-              {job.company.name}
+            <td className="px-4 py-4 whitespace-wrap text-sm text-gray-500 text-center underline">
+              <Link to={job.company.url}>{job.company.name}</Link>
             </td>
             <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
               <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{job.application.current_status.status.name}</span>
