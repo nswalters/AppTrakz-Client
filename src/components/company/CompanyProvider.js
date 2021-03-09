@@ -16,8 +16,20 @@ export const CompanyProvider = (props) => {
       .then(setCompanyList);
   };
 
+  // Create a new compnay
+  const createCompany = (newCompanyDetails) => (
+    fetch('http://localhost:8000/companies', {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newCompanyDetails),
+    })
+  );
+
   return (
-    <CompanyContext.Provider value={{ companyList, getCompanies }} >
+    <CompanyContext.Provider value={{ companyList, createCompany, getCompanies }} >
       { props.children}
     </CompanyContext.Provider>
   );

@@ -1,11 +1,13 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
 import { CompanyContext } from '../company/CompanyProvider';
-import { JobContext } from '../job/JobProvider';
+// import { JobContext } from '../job/JobProvider';
 
 export const CreateForm = (props) => {
-  const { companyList, getCompanies } = useContext(CompanyContext);
-  const { jobList } = useContext(JobContext);
+  const { companyList, createCompany, getCompanies } = useContext(CompanyContext);
+  // const { } = useContext(JobContext);
+
+  const [companySubmissionErrors, setCompanySubmissionErrors] = useState([]);
 
   const [currentCompany, setCurrentCompany] = useState({
     name: '',
@@ -46,16 +48,41 @@ export const CreateForm = (props) => {
 
   const submitCompany = (e) => {
     e.preventDefault();
+    setCompanySubmissionErrors([]);
 
-    const newCompanyDetails = currentCompany;
+    // const result = createCompany(currentCompany);
+    createCompany(currentCompany)
+      .then((res) => {
+        if (res.ok) {
+          // If response was OK, then we reset the form
+          setCurrentCompany(
+            {
+              name: '',
+              address1: '',
+              address2: '',
+              city: '',
+              state: '',
+              zipcode: '',
+              website: '',
+            },
+          );
 
-    // TODO: Create POST submission for company
-    console.error('Company Submission Completed');
-    console.error(JSON.stringify(newCompanyDetails));
-
-    // After submitting, make sure we call the `getCompanies` function again
-    // to update our select list for the job section
-    getCompanies();
+          // Grab the updated companies list so the job section below updates with the new company
+          getCompanies();
+        } else {
+          throw res;
+        }
+      })
+      .catch((err) => {
+        err.json().then((jsonError) => {
+          const errors = [];
+          // eslint-disable-next-line guard-for-in
+          for (const key in jsonError) {
+            errors.push({ field: key, error: jsonError[key][0][0] });
+          }
+          setCompanySubmissionErrors(errors);
+        });
+      });
   };
 
   const submitJob = (e) => {
@@ -89,27 +116,27 @@ export const CreateForm = (props) => {
 
                       <div className="col-span-6">
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">Company Name*</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="name" id="name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.name} required />
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="name" id="name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={currentCompany.name} required />
                       </div>
 
                       <div className="col-span-6">
                         <label htmlFor="website" className="block text-sm font-medium text-gray-700">Company Website*</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="website" id="website" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.website} required />
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="website" id="website" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={currentCompany.website} required />
                       </div>
 
                       <div className="col-span-6">
                         <label htmlFor="address1" className="block text-sm font-medium text-gray-700">Street address*</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="address1" id="address1" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.address1} required />
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="address1" id="address1" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={currentCompany.address1} required />
                       </div>
 
                       <div className="col-span-6">
                         <label htmlFor="address2" className="block text-sm font-medium text-gray-700">Suite, Unit, Apt, etc.</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="address2" id="address2" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.address2} />
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="address2" id="address2" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={currentCompany.address2} />
                       </div>
 
                       <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                         <label htmlFor="city" className="block text-sm font-medium text-gray-700">City*</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="city" id="city" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.city} required />
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="city" id="city" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={currentCompany.city} required />
                       </div>
 
                       <div className="col-span-6 sm:col-span-2">
@@ -172,7 +199,7 @@ export const CreateForm = (props) => {
 
                       <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                         <label htmlFor="zipcode" className="block text-sm font-medium text-gray-700">ZIP / Postal*</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="zipcode" id="zipcode" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.zipcode} required />
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="zipcode" id="zipcode" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={currentCompany.zipcode} required />
                       </div>
                     </div>
                   </div>
@@ -188,6 +215,32 @@ export const CreateForm = (props) => {
                     </button>
                     </div>
                   </div>
+                  {companySubmissionErrors.length > 0 ? (
+                    <div class="rounded-md bg-red-50 p-4">
+                      <div class="flex">
+                        <div class="flex-shrink-0">
+                          {/* <!-- Heroicon name: solid/x-circle --> */}
+                          <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                          </svg>
+                        </div>
+                        <div class="ml-3">
+                          <h3 class="text-sm font-medium text-red-800">
+                            There were {companySubmissionErrors.length} errors with your submission
+                          </h3>
+                          <div class="mt-2 text-sm text-red-700">
+                            <ul class="list-disc pl-5 space-y-1">
+                              {companySubmissionErrors && companySubmissionErrors.map((error) => (
+                                <li>
+                                  {error.field}: {error.error}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : ''}
                 </div>
               </form>
             </div>
