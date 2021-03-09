@@ -75,12 +75,12 @@ export const NavBar = (props) => {
           {(localStorage.getItem('apptrakz_token') !== null) ? (
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <Link to="/jobs/new" className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <Link to="/create" className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   {/* <!-- Heroicon name: plus --> */}
                   <svg className="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
                   </svg>
-                  <span>New Job</span>
+                  <span>New...</span>
                 </Link>
               </div>
               <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
