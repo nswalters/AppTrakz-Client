@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const CompanyListCard = (props) => {
   const { company } = props;
@@ -17,7 +18,7 @@ export const CompanyListCard = (props) => {
           </button>
         </div>
         <div className="flex-1 flex flex-col p-4">
-          <a href={company.url} className="mt-1 text-gray-900 text-xl font-medium hover:underline">{company.name}</a>
+          <Link to={company.url} className="mt-1 text-gray-900 text-xl font-medium hover:underline">{company.name}</Link>
           <dl className="mt-4 flex-grow flex flex-col justify-between">
             <dt className="sr-only">Address</dt>
             <dd className="text-gray-500 text-md">{company.address1} {company.address2}</dd>

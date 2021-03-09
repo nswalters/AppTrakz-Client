@@ -228,37 +228,39 @@ export const JobDetails = (props) => {
 
           <section aria-labelledby="timeline-title" className="lg:col-start-3 lg:col-span-1">
             <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
-              <h2 id="timeline-title" className="text-lg font-medium text-gray-900">Timeline</h2>
+              <h2 id="timeline-title" className="text-lg font-medium text-gray-900">Application Timeline</h2>
 
               {/* TODO: Make this a separate component?? */}
               {/* <!-- Activity Feed --> */}
               <div className="mt-6 flow-root">
                 <ul className="-mb-8">
-                  <li>
-                    <div className="relative pb-8">
-                      {jobApplication.statuses && (jobApplication.statuses).length <= 1 ? '' : (
-                        <span className="absolute top-3 left-3 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                      )}
-                      <div className="relative flex space-x-3">
-                        <div>
-                          <span className="h-6 w-6 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white">
-                            {/* <!-- Heroicon name: solid/user --> */}
-                            {/* <svg className="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  {jobApplication.statuses ? (
+                    <li>
+                      <div className="relative pb-8">
+                        {jobApplication.statuses && (jobApplication.statuses).length <= 1 ? '' : (
+                          <span className="absolute top-3 left-3 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                        )}
+                        <div className="relative flex space-x-3">
+                          <div>
+                            <span className="h-6 w-6 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white">
+                              {/* <!-- Heroicon name: solid/user --> */}
+                              {/* <svg className="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                               <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                             </svg> */}
-                          </span>
-                        </div>
-                        <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                          <div>
-                            <p className="text-sm text-gray-500">Applied to <a href={jobApplication.job && jobApplication.job.url} className="font-medium text-gray-900">{jobApplication.job && jobApplication.job.role_title}</a></p>
+                            </span>
                           </div>
-                          <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                            <time dateTime={jobApplication.submitted_at && (jobApplication.submitted_at).split('T')[0]}>{new Date(jobApplication.submitted_at).toLocaleString('en-us', { month: 'short', day: 'numeric' })}</time>
+                          <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                            <div>
+                              <p className="text-sm text-gray-500">Applied to <a href={jobApplication.job && jobApplication.job.url} className="font-medium text-gray-900">{jobApplication.job && jobApplication.job.role_title}</a></p>
+                            </div>
+                            <div className="text-right text-sm whitespace-nowrap text-gray-500">
+                              <time dateTime={jobApplication.submitted_at && (jobApplication.submitted_at).split('T')[0]}>{new Date(jobApplication.submitted_at).toLocaleString('en-us', { month: 'short', day: 'numeric' })}</time>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </li>
+                    </li>
+                  ) : <div className="pb-8 text-gray-500"><em>No Activity Yet</em></div>}
                   {/*
                     - For every record in jobApplication.statuses -- sorted by updated_at ascending (so oldest first)
                     - Create an 'ApplicationActivityFeedItem' component to render the proper feed item

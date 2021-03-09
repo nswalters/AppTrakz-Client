@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const CompanyListTable = (props) => {
   const { companyList } = props;
@@ -29,8 +30,8 @@ export const CompanyListTable = (props) => {
         {companyList.map((company, idx) => (
           // Alternate background colors of table rows
           <tr key={company.id} className={`${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-            <td className="px-4 py-4 whitespace-wrap text-sm font-medium text-gray-900">
-              {companyList && company.name}
+            <td className="px-4 py-4 whitespace-wrap text-sm font-medium text-gray-900 underline">
+              <Link to={companyList && company.url}>{companyList && company.name}</Link>
             </td>
             <td className="px-4 py-4 whitespace-wrap text-sm text-gray-500">
               {company.address1} {company.address2}
