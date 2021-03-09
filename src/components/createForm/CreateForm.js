@@ -47,8 +47,11 @@ export const CreateForm = (props) => {
   const submitCompany = (e) => {
     e.preventDefault();
 
+    const newCompanyDetails = currentCompany;
+
     // TODO: Create POST submission for company
     console.error('Company Submission Completed');
+    console.error(JSON.stringify(newCompanyDetails));
 
     // After submitting, make sure we call the `getCompanies` function again
     // to update our select list for the job section
@@ -58,7 +61,11 @@ export const CreateForm = (props) => {
   const submitJob = (e) => {
     e.preventDefault();
 
+    const newJobDetails = currentJob;
+    newJobDetails.company = parseInt(currentJob.company, 10);
+
     console.error('Job Submission Completed');
+    console.error(JSON.stringify(newJobDetails));
   };
 
   return (
