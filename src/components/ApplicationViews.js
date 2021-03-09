@@ -6,6 +6,7 @@ import { ApplicationProvider } from './application/ApplicationProvider';
 import { CompanyDetails } from './company/CompanyDetails';
 import { CompanyListView } from './company/CompanyListView';
 import { CompanyProvider } from './company/CompanyProvider';
+import { CreateForm } from './createForm/CreateForm';
 import { JobDetails } from './job/JobDetails';
 import { JobListView } from './job/JobListView';
 import { JobProvider } from './job/JobProvider';
@@ -41,6 +42,14 @@ export const ApplicationViews = () => (
         <ApplicationListView />
       </Route>
     </ApplicationProvider>
+
+    <CompanyProvider>
+      <JobProvider>
+        <Route exact path="/create">
+          <CreateForm />
+        </Route>
+      </JobProvider>
+    </CompanyProvider>
 
   </>
 );
