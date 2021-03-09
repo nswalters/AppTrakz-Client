@@ -1,13 +1,18 @@
 /* eslint-disable max-len */
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { CompanyContext } from '../company/CompanyProvider';
-// import { JobContext } from '../job/JobProvider';
+import { JobContext } from '../job/JobProvider';
 
 export const CreateForm = (props) => {
+  const jobErrorRef = useRef(null);
+
   const { companyList, createCompany, getCompanies } = useContext(CompanyContext);
-  // const { } = useContext(JobContext);
+  const { createJob } = useContext(JobContext);
 
   const [companySubmissionErrors, setCompanySubmissionErrors] = useState([]);
+  const [jobSubmissionErrors, setJobSubmissionErrors] = useState([]);
 
   const [currentCompany, setCurrentCompany] = useState({
     name: '',
@@ -46,11 +51,48 @@ export const CreateForm = (props) => {
     setCurrentJob(newJobState);
   };
 
+  const submitJob = (e) => {
+    e.preventDefault();
+    setJobSubmissionErrors([]);
+    const newJobDetails = currentJob;
+    newJobDetails.company = parseInt(currentJob.company, 10);
+
+    createJob(newJobDetails)
+      .then((res) => {
+        if (res.ok) {
+          // If response was OK, then we reset the form
+          setCurrentJob(
+            {
+              role_title: '',
+              type: '',
+              qualifications: '',
+              post_link: '',
+              salary: '',
+              description: '',
+              company: '',
+            },
+          );
+        } else {
+          throw res;
+        }
+      })
+      .catch((err) => {
+        err.json().then((jsonError) => {
+          const errors = [];
+          // eslint-disable-next-line guard-for-in
+          for (const key in jsonError) {
+            errors.push({ field: key, error: jsonError[key][0][0] });
+          }
+          setJobSubmissionErrors(errors);
+          jobErrorRef.current.scrollIntoView();
+        });
+      });
+  };
+
   const submitCompany = (e) => {
     e.preventDefault();
     setCompanySubmissionErrors([]);
 
-    // const result = createCompany(currentCompany);
     createCompany(currentCompany)
       .then((res) => {
         if (res.ok) {
@@ -83,16 +125,6 @@ export const CreateForm = (props) => {
           setCompanySubmissionErrors(errors);
         });
       });
-  };
-
-  const submitJob = (e) => {
-    e.preventDefault();
-
-    const newJobDetails = currentJob;
-    newJobDetails.company = parseInt(currentJob.company, 10);
-
-    console.error('Job Submission Completed');
-    console.error(JSON.stringify(newJobDetails));
   };
 
   return (
@@ -271,7 +303,7 @@ export const CreateForm = (props) => {
 
                       <div className="col-span-6">
                         <label htmlFor="role_title" className="block text-sm font-medium text-gray-700">Role Title*</label>
-                        <input onChange={handleControlledInputChangeJob} type="text" name="role_title" id="role_title" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required />
+                        <input onChange={handleControlledInputChangeJob} type="text" name="role_title" id="role_title" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={currentJob.role_title} required />
                       </div>
 
                       <div className="col-span-6 sm:col-span-3">
@@ -297,22 +329,22 @@ export const CreateForm = (props) => {
 
                       <div className="col-span-6 sm:col-span-3">
                         <label htmlFor="salary" className="block text-sm font-medium text-gray-700">Salary Expectation</label>
-                        <input onChange={handleControlledInputChangeJob} type="text" name="salary" id="salary" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                        <input onChange={handleControlledInputChangeJob} type="text" name="salary" id="salary" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={currentJob.salary} />
                       </div>
 
                       <div className="col-span-6">
                         <label htmlFor="qualifications" className="block text-sm font-medium text-gray-700">Important Qualifications*</label>
-                        <input onChange={handleControlledInputChangeJob} type="text" name="qualifications" id="qualifications" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                        <input onChange={handleControlledInputChangeJob} type="text" name="qualifications" id="qualifications" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={currentJob.qualifications} />
                       </div>
 
                       <div className="col-span-6">
                         <label htmlFor="post_link" className="block text-sm font-medium text-gray-700">Job Posting Link*</label>
-                        <input onChange={handleControlledInputChangeJob} type="text" name="post_link" id="post_link" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                        <input onChange={handleControlledInputChangeJob} type="text" name="post_link" id="post_link" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={currentJob.post_link} />
                       </div>
 
                       <div className="col-span-6">
                         <label htmlFor="description" className="block text-sm font-medium text-gray-700">Job Description* <small>(supports linebreaks)</small></label>
-                        <textarea onChange={handleControlledInputChangeJob} name="description" id="descripton" rows="25" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm-text-sm border-gray-300 rounded-md whitespace-pre-wrap"></textarea>
+                        <textarea onChange={handleControlledInputChangeJob} name="description" id="descripton" rows="25" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm-text-sm border-gray-300 rounded-md whitespace-pre-wrap" value={currentJob.description} ></textarea>
                       </div>
                     </div>
                   </div>
@@ -328,6 +360,32 @@ export const CreateForm = (props) => {
                     </button>
                     </div>
                   </div>
+                  {jobSubmissionErrors.length > 0 ? (
+                    <div class="rounded-md bg-red-50 p-4">
+                      <div class="flex">
+                        <div class="flex-shrink-0">
+                          {/* <!-- Heroicon name: solid/x-circle --> */}
+                          <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                          </svg>
+                        </div>
+                        <div class="ml-3">
+                          <h3 ref={jobErrorRef} class="text-sm font-medium text-red-800">
+                            There were {jobSubmissionErrors.length} errors with your submission
+                          </h3>
+                          <div class="mt-2 text-sm text-red-700">
+                            <ul class="list-disc pl-5 space-y-1">
+                              {jobSubmissionErrors && jobSubmissionErrors.map((error) => (
+                                <li>
+                                  {error.field}: {error.error}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : ''}
                 </div>
               </form>
             </div>
