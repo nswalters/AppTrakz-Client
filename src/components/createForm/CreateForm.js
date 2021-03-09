@@ -46,56 +46,68 @@ export const CreateForm = (props) => {
 
   const submitCompany = (e) => {
     e.preventDefault();
-    console.error('Submission Completed');
+
+    // TODO: Create POST submission for company
+    console.error('Company Submission Completed');
+
+    // After submitting, make sure we call the `getCompanies` function again
+    // to update our select list for the job section
+    getCompanies();
+  };
+
+  const submitJob = (e) => {
+    e.preventDefault();
+
+    console.error('Job Submission Completed');
   };
 
   return (
     <div className="min-h-(screen-16) bg-gray-100">
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="mt-10 sm:mt-0">
-          <div class="md:grid md:grid-cols-3 md:gap-6">
-            <div class="md:col-span-1">
-              <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">Company Information</h3>
-                <p class="mt-1 text-sm text-gray-600">
+        <div className="mt-10 sm:mt-0">
+          <div className="md:grid md:grid-cols-3 md:gap-6">
+            <div className="md:col-span-1">
+              <div className="px-4 sm:px-0">
+                <h3 className="text-lg font-medium leading-6 text-gray-900">Company Information</h3>
+                <p className="mt-1 text-sm text-gray-600">
                   Fill out the company's information here.
                 </p>
               </div>
             </div>
-            <div class="mt-5 md:mt-0 md:col-span-2">
+            <div className="mt-5 md:mt-0 md:col-span-2">
               <form onSubmit={submitCompany}>
-                <div class="shadow overflow-hidden sm:rounded-md">
-                  <div class="px-4 py-5 bg-white sm:p-6">
-                    <div class="grid grid-cols-6 gap-6">
+                <div className="shadow overflow-hidden sm:rounded-md">
+                  <div className="px-4 py-5 bg-white sm:p-6">
+                    <div className="grid grid-cols-6 gap-6">
 
-                      <div class="col-span-6">
-                        <label for="name" class="block text-sm font-medium text-gray-700">Company Name*</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="name" id="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.name} required />
+                      <div className="col-span-6">
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Company Name*</label>
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="name" id="name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.name} required />
                       </div>
 
-                      <div class="col-span-6">
-                        <label for="website" class="block text-sm font-medium text-gray-700">Company Website*</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="website" id="website" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.website} required />
+                      <div className="col-span-6">
+                        <label htmlFor="website" className="block text-sm font-medium text-gray-700">Company Website*</label>
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="website" id="website" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.website} required />
                       </div>
 
-                      <div class="col-span-6">
-                        <label for="address1" class="block text-sm font-medium text-gray-700">Street address*</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="address1" id="address1" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.address1} required />
+                      <div className="col-span-6">
+                        <label htmlFor="address1" className="block text-sm font-medium text-gray-700">Street address*</label>
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="address1" id="address1" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.address1} required />
                       </div>
 
-                      <div class="col-span-6">
-                        <label for="address2" class="block text-sm font-medium text-gray-700">Suite, Unit, Apt, etc.</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="address2" id="address2" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.address2} />
+                      <div className="col-span-6">
+                        <label htmlFor="address2" className="block text-sm font-medium text-gray-700">Suite, Unit, Apt, etc.</label>
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="address2" id="address2" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.address2} />
                       </div>
 
-                      <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                        <label for="city" class="block text-sm font-medium text-gray-700">City*</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="city" id="city" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.city} required />
+                      <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                        <label htmlFor="city" className="block text-sm font-medium text-gray-700">City*</label>
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="city" id="city" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.city} required />
                       </div>
 
-                      <div class="col-span-6 sm:col-span-2">
-                        <label for="state" class="block text-sm font-medium text-gray-700">State*</label>
-                        <select onChange={handleControlledInputChangeCompany} id="state" name="state" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value={currentCompany.state || ''} required>
+                      <div className="col-span-6 sm:col-span-2">
+                        <label htmlFor="state" className="block text-sm font-medium text-gray-700">State*</label>
+                        <select onChange={handleControlledInputChangeCompany} id="state" name="state" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value={currentCompany.state || ''} required>
                           <option value="" disabled>Select a State...</option>
                           <option value="AL" >Alabama</option>
                           <option value="AK">Alaska</option>
@@ -151,9 +163,9 @@ export const CreateForm = (props) => {
                         </select>
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                        <label for="zipcode" class="block text-sm font-medium text-gray-700">ZIP / Postal*</label>
-                        <input onChange={handleControlledInputChangeCompany} type="text" name="zipcode" id="zipcode" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.zipcode} required />
+                      <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                        <label htmlFor="zipcode" className="block text-sm font-medium text-gray-700">ZIP / Postal*</label>
+                        <input onChange={handleControlledInputChangeCompany} type="text" name="zipcode" id="zipcode" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" defaultValue={currentCompany.zipcode} required />
                       </div>
                     </div>
                   </div>
@@ -163,8 +175,8 @@ export const CreateForm = (props) => {
                         * denotes required field
                       </small>
                     </div>
-                    <div class="px-4 py-3 text-right sm:px-6">
-                      <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <div className="px-4 py-3 text-right sm:px-6">
+                      <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Save
                     </button>
                     </div>
@@ -175,45 +187,47 @@ export const CreateForm = (props) => {
           </div>
         </div>
 
-        <div class="hidden sm:block" aria-hidden="true">
-          <div class="py-5">
-            <div class="border-t border-gray-200"></div>
+        <div className="hidden sm:block" aria-hidden="true">
+          <div className="py-5">
+            <div className="border-t border-gray-200"></div>
           </div>
         </div>
 
-        <div class="mt-10 sm:mt-0">
-          <div class="md:grid md:grid-cols-3 md:gap-6">
-            <div class="md:col-span-1">
-              <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">Job Information</h3>
-                <p class="mt-1 text-sm text-gray-600">
+        <div className="mt-10 sm:mt-0">
+          <div className="md:grid md:grid-cols-3 md:gap-6">
+            <div className="md:col-span-1">
+              <div className="px-4 sm:px-0">
+                <h3 className="text-lg font-medium leading-6 text-gray-900">Job Information</h3>
+                <p className="mt-1 text-sm text-gray-600">
                   Fill out the Job's information here.
                 </p>
               </div>
             </div>
-            <div class="mt-5 md:mt-0 md:col-span-2">
-              <form>
-                <div class="shadow overflow-hidden sm:rounded-md">
-                  <div class="px-4 py-5 bg-white sm:p-6">
-                    <div class="grid grid-cols-6 gap-6">
+            <div className="mt-5 md:mt-0 md:col-span-2">
+              <form onSubmit={submitJob}>
+                <div className="shadow overflow-hidden sm:rounded-md">
+                  <div className="px-4 py-5 bg-white sm:p-6">
+                    <div className="grid grid-cols-6 gap-6">
 
-                      <div class="col-span-6">
-                        <label for="role_title" class="block text-sm font-medium text-gray-700">Role Title*</label>
-                        <input type="text" name="role_title" id="role_title" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required />
+                      <div className="col-span-6">
+                        <label htmlFor="role_title" className="block text-sm font-medium text-gray-700">Role Title*</label>
+                        <input onChange={handleControlledInputChangeJob} type="text" name="role_title" id="role_title" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required />
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3">
-                        <label for="company" class="block text-sm font-medium text-gray-700">Company*</label>
-                        <select id="company" name="company" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                          <option>First Company</option>
-                          <option>Second Company</option>
-                          <option>Third Company</option>
+                      <div className="col-span-6 sm:col-span-3">
+                        <label htmlFor="company" className="block text-sm font-medium text-gray-700">Company*</label>
+                        <select onChange={handleControlledInputChangeJob} id="company" name="company" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value={currentJob.company || ''} required>
+                          <option value="" disabled>Select a Company...</option>
+                          {companyList.map((company) => (
+                            <option key={company.id} value={company.id}>{company.name}</option>
+                          ))}
                         </select>
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3">
-                        <label for="type" class="block text-sm font-medium text-gray-700">Job Type*</label>
-                        <select id="type" name="type" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                      <div className="col-span-6 sm:col-span-3">
+                        <label htmlFor="type" className="block text-sm font-medium text-gray-700">Job Type*</label>
+                        <select onChange={handleControlledInputChangeJob} id="type" name="type" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value={currentJob.type || ''} required>
+                          <option value="" disabled>Select a Job Type...</option>
                           <option>Full-Time</option>
                           <option>Part-Time</option>
                           <option>Contract</option>
@@ -221,24 +235,24 @@ export const CreateForm = (props) => {
                         </select>
                       </div>
 
-                      <div class="col-span-6 sm:col-span-3">
-                        <label for="salary" class="block text-sm font-medium text-gray-700">Salary Expectation</label>
-                        <input type="text" name="email_address" id="email_address" autocomplete="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      <div className="col-span-6 sm:col-span-3">
+                        <label htmlFor="salary" className="block text-sm font-medium text-gray-700">Salary Expectation</label>
+                        <input onChange={handleControlledInputChangeJob} type="text" name="salary" id="salary" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
 
-                      <div class="col-span-6">
-                        <label for="qualifications" class="block text-sm font-medium text-gray-700">Important Qualifications*</label>
-                        <input type="text" name="qualifications" id="qualifications" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      <div className="col-span-6">
+                        <label htmlFor="qualifications" className="block text-sm font-medium text-gray-700">Important Qualifications*</label>
+                        <input onChange={handleControlledInputChangeJob} type="text" name="qualifications" id="qualifications" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
 
-                      <div class="col-span-6">
-                        <label for="post_link" class="block text-sm font-medium text-gray-700">Job Posting Link*</label>
-                        <input type="text" name="post_link" id="post_link" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                      <div className="col-span-6">
+                        <label htmlFor="post_link" className="block text-sm font-medium text-gray-700">Job Posting Link*</label>
+                        <input onChange={handleControlledInputChangeJob} type="text" name="post_link" id="post_link" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
 
-                      <div class="col-span-6">
-                        <label for="description" class="block text-sm font-medium text-gray-700">Job Description* <small>(supports linebreaks)</small></label>
-                        <textarea name="description" id="descripton" rows="25" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm-text-sm border-gray-300 rounded-md whitespace-pre-wrap"></textarea>
+                      <div className="col-span-6">
+                        <label htmlFor="description" className="block text-sm font-medium text-gray-700">Job Description* <small>(supports linebreaks)</small></label>
+                        <textarea onChange={handleControlledInputChangeJob} name="description" id="descripton" rows="25" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm-text-sm border-gray-300 rounded-md whitespace-pre-wrap"></textarea>
                       </div>
                     </div>
                   </div>
@@ -248,8 +262,8 @@ export const CreateForm = (props) => {
                         * denotes required field
                       </small>
                     </div>
-                    <div class="px-4 py-3 text-right sm:px-6">
-                      <button onClick={() => { }} type="button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <div className="px-4 py-3 text-right sm:px-6">
+                      <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Save
                     </button>
                     </div>
