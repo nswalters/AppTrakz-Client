@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const ApplicationListTable = (props) => {
   const { applicationList } = props;
@@ -31,8 +32,8 @@ export const ApplicationListTable = (props) => {
       <tbody>
         {applicationList.map((application, idx) => (
           <tr key={application.id} className={`${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-            <td className="px-4 py-4 whitepace-nowrap text-sm font-medium text-gray-900">
-              {application.job.role_title}
+            <td className="px-4 py-4 whitepace-nowrap text-sm font-medium text-gray-900 underline">
+              <Link to={application.job.url}>{application.job.role_title}</Link>
             </td>
             <td className="px-4 py-4 whitepace-nowrap text-sm font-medium text-gray-500 text-center">
               {(application.submitted_at).split('T')[0]}
