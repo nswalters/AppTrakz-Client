@@ -18,6 +18,9 @@ export const ApplicationListTable = (props) => {
             Current Status
           </th>
           <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Reason
+          </th>
+          <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
             Is Active
           </th>
           <th scope="col" className="relative px-6 py-3">
@@ -39,7 +42,10 @@ export const ApplicationListTable = (props) => {
                 {((application.statuses).filter((appStatus) => appStatus.is_current === true))[0].name}
               </span>
             </td>
-            <td className="px-4 py-4 whitepace-nowrap text-sm font-medium text-gray-500">
+            <td className="px-4 py-4 text-sm font-medium text-gray-500">
+              {((application.statuses).filter((appStatus) => appStatus.is_current === true))[0].reason}
+            </td>
+            <td className="px-4 py-4 text-sm font-medium text-gray-500">
               {application.is_active ? 'Active' : 'Inactive'}
             </td>
             <td className="pr-4 py-4 whitespace-wrap text-sm font-medium">
