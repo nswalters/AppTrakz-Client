@@ -27,10 +27,10 @@ export const ApplicationViews = () => (
     </CompanyProvider>
 
     <JobProvider>
-      <Route exact path="/jobs">
-        <JobListView />
-      </Route>
       <ApplicationProvider>
+        <Route exact path="/jobs">
+          <JobListView />
+        </Route>
         <Route exact path="/jobs/:jobId(\d+)" render={
           (props) => <JobDetails {...props} />
         } />

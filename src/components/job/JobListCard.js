@@ -24,7 +24,15 @@ export const JobListCard = (props) => {
           </p>
           <dl className="mt-2 flex-grow flex flex-col justify-end">
             <dd className="mb-6">
-              <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{job.application && job.application.current_status.status.name ? job.application.current_status.status.name : '-'}</span>
+              {job.application ? (
+                <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{job.application && job.application.current_status.status.name}</span>
+              ) : (
+                <div className="flex-shrink-0">
+                  <button onClick={() => { props.createApplication({ job: job.id }).then(props.getJobs()).then(props.getApplications()); }} className="relative inline-flex items-center px-4 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <span>Apply</span>
+                  </button>
+                </div>
+              )}
             </dd>
             <dt className="sr-only">Type, Salary</dt>
             <dd className="text-gray-500 text-md">

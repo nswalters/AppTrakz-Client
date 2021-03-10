@@ -6,7 +6,7 @@ import { JobContext } from './JobProvider';
 
 export const JobDetails = (props) => {
   const { jobList, getJobs } = useContext(JobContext);
-  const { applicationList, getApplications } = useContext(ApplicationContext);
+  const { applicationList, createApplication, getApplications } = useContext(ApplicationContext);
 
   const [singleJob, setSingleJob] = useState({});
   const [jobApplication, setJobApplication] = useState({});
@@ -48,13 +48,22 @@ export const JobDetails = (props) => {
             {/* <!-- Description list--> */}
             <section aria-labelledby="applicant-information-title">
               <div className="bg-white shadow sm:rounded-lg">
-                <div className="px-4 py-5 sm:px-6">
-                  <h2 id="applicant-information-title" className="text-lg leading-6 font-medium text-gray-900">
-                    Job Information
+                <div className="flex justify-between">
+                  <div className="px-4 py-5 sm:px-6">
+                    <h2 id="applicant-information-title" className="text-lg leading-6 font-medium text-gray-900">
+                      Job Information
                   </h2>
-                  <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                    Specific details about the job.
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                      Specific details about the job.
                   </p>
+                  </div>
+                  {singleJob.application ? '' : (
+                    <div className="my-auto mr-8 flex-shrink-0">
+                      <button onClick={() => { createApplication({ job: singleJob.id }).then(getJobs()).then(getApplications()); }} className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <span>Apply</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                   <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">

@@ -6,15 +6,15 @@ export const CompanyProvider = (props) => {
   const [companyList, setCompanyList] = useState([]);
 
   // Get companies
-  const getCompanies = () => {
+  const getCompanies = () => (
     fetch('http://localhost:8000/companies', {
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
       },
     })
       .then((res) => res.json())
-      .then(setCompanyList);
-  };
+      .then(setCompanyList)
+  );
 
   // Create a new compnay
   const createCompany = (newCompanyDetails) => (
