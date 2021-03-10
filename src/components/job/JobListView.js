@@ -1,11 +1,13 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect } from 'react';
+import { ApplicationContext } from '../application/ApplicationProvider';
 import { JobContext } from './JobProvider';
 import { JobListTable } from './JobListTable';
 import { JobListCard } from './JobListCard';
 
 export const JobListView = (props) => {
   const { jobList, getJobs } = useContext(JobContext);
+  const { createApplication, getApplications } = useContext(ApplicationContext);
 
   useEffect(() => {
     getJobs();
@@ -20,7 +22,11 @@ export const JobListView = (props) => {
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block max-w-screen-lg sm:px-6 lg:px-8">
               <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg mt-16">
-                {jobList && <JobListTable jobList={jobList} />}
+                {jobList && <JobListTable
+                  createApplication={createApplication}
+                  getApplications={getApplications}
+                  getJobs={getJobs}
+                  jobList={jobList} />}
               </div>
             </div>
           </div>
@@ -30,7 +36,12 @@ export const JobListView = (props) => {
       <div className="block container mx-auto lg:hidden">
         <div className="flex justify-center">
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-16">
-            {jobList && jobList.map((job) => <JobListCard key={job.id} job={job} />)}
+            {jobList && jobList.map((job) => <JobListCard
+              key={job.id}
+              createApplication={createApplication}
+              getApplications={getApplications}
+              getJobs={getJobs}
+              job={job} />)}
           </ul>
         </div>
       </div>

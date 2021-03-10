@@ -52,7 +52,15 @@ export const JobListTable = (props) => {
               <Link to={job.company.url}>{job.company.name}</Link>
             </td>
             <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-              <span className={`px-2 py-1 ${job.application && job.application.current_status.status.name ? 'text-green-800' : 'text-red-800'} text-xs font-medium ${job.application && job.application.current_status.status.name ? 'bg-green-100' : 'bg-red-100'} rounded-full`}>{job.application && job.application.current_status.status.name ? job.application.current_status.status.name : 'No Application'}</span>
+              {job.application ? (
+                <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{job.application.current_status.status.name}</span>
+              ) : (
+                <div className="flex-shrink-0">
+                  <button onClick={() => { props.createApplication({ job: job.id }).then(props.getJobs()).then(props.getApplications()); }} className="relative inline-flex items-center px-4 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <span>Apply</span>
+                  </button>
+                </div>
+              )}
             </td>
             <td className="pr-4 py-4 whitespace-wrap text-sm font-medium">
               <a href="/" className="text-indigo-600 hover:text-indigo-900">Edit</a>
