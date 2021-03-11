@@ -46,9 +46,6 @@ export const ApplicationViews = () => (
 
     <CompanyProvider>
       <JobProvider>
-        {/* <Route exact path="/create">
-          <CreateForm />
-        </Route> */}
         <Route path={['/create', '/companies/:companyId/edit', '/jobs/:jobId/edit']} render={(props) => <CreateAndEditForm {...props} />} />
       </JobProvider>
     </CompanyProvider>
