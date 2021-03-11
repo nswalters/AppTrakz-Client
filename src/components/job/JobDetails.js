@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Transition } from '@headlessui/react';
 import { ApplicationContext } from '../application/ApplicationProvider';
 import { JobContext } from './JobProvider';
 
@@ -10,6 +11,7 @@ export const JobDetails = (props) => {
 
   const [singleJob, setSingleJob] = useState({});
   const [jobApplication, setJobApplication] = useState({});
+  const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {
     getJobs();
@@ -58,12 +60,50 @@ export const JobDetails = (props) => {
                   </p>
                   </div>
                   {singleJob.application ? '' : (
-                    <div className="my-auto mr-8 flex-shrink-0">
+                    <div className="my-auto mr-8 flex-shrink-0 ml-auto">
                       <button onClick={() => { createApplication({ job: singleJob.id }).then(getJobs()).then(getApplications()); }} className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         <span>Apply</span>
                       </button>
                     </div>
                   )}
+                  <div class="relative inline-block text-left my-auto mr-4">
+                    <div>
+                      <button onClick={() => setShowOptions((prev) => !prev)} type="button" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="options-menu" aria-expanded="true" aria-haspopup="true">
+                        <span class="sr-only">Open options</span>
+                        {/* <!-- Heroicon name: solid/dots-vertical --> */}
+                        <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    {/* <!--
+                       Dropdown menu, show/hide based on menu state.
+
+                        Entering: "transition ease-out duration-100"
+                          From: "transform opacity-0 scale-95"
+                          To: "transform opacity-100 scale-100"
+                        Leaving: "transition ease-in duration-75"
+                          From: "transform opacity-100 scale-100"
+                          To: "transform opacity-0 scale-95"
+                      --> */}
+                    <Transition
+                      show={showOptions}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                        <div class="py-1" role="none">
+                          <Link to={`${singleJob.url}/edit`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit</Link>
+                          <a href="/" class="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-100 hover:text-gray-900" role="menuitem">Delete</a>
+                        </div>
+                      </div>
+                    </Transition>
+                  </div>
                 </div>
                 <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                   <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
