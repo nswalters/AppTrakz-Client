@@ -36,7 +36,7 @@ export const JobListTable = (props) => {
         {jobList.map((job, idx) => (
           // Alternate background colors of table rows
           <tr key={job.id} className={`${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-            <td className="px-4 py-4 whitespace-wrap text-sm font-medium text-gray-900">
+            <td className="px-4 py-4 whitespace-wrap text-sm font-medium text-gray-900 underline">
               <Link to={jobList && job.url}>{jobList && job.role_title}</Link>
             </td>
             <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
@@ -63,7 +63,7 @@ export const JobListTable = (props) => {
               )}
             </td>
             <td className="pr-4 py-4 whitespace-wrap text-sm font-medium">
-              <a href="/" className="text-indigo-600 hover:text-indigo-900">Edit</a>
+              <Link to={`${job.url}/edit`} className="text-indigo-600 hover:text-indigo-900">Edit</Link>
             </td>
           </tr>
         ))}

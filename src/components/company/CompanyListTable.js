@@ -43,7 +43,7 @@ export const CompanyListTable = (props) => {
               <a href={company.website}>{company.website}</a>
             </td>
             <td className="pr-4 py-4 whitespace-wrap text-sm font-medium">
-              <a href="/" className="text-indigo-600 hover:text-indigo-900">Edit</a>
+              <Link to={`${company.url}/edit`} className="text-indigo-600 hover:text-indigo-900">Edit</Link>
             </td>
           </tr>
         ))}

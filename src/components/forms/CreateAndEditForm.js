@@ -2,14 +2,21 @@
 import React, {
   useContext, useEffect, useRef, useState,
 } from 'react';
+import { useHistory } from 'react-router-dom';
 import { CompanyContext } from '../company/CompanyProvider';
 import { JobContext } from '../job/JobProvider';
 
-export const CreateForm = (props) => {
+export const CreateAndEditForm = (props) => {
   const jobErrorRef = useRef(null);
+  const history = useHistory();
 
-  const { companyList, createCompany, getCompanies } = useContext(CompanyContext);
-  const { createJob } = useContext(JobContext);
+  const {
+    companyList, createCompany, getCompanies, updateCompany,
+  } = useContext(CompanyContext);
+
+  const {
+    createJob, getJobs, jobList, updateJob,
+  } = useContext(JobContext);
 
   const [companySubmissionErrors, setCompanySubmissionErrors] = useState([]);
   const [jobSubmissionErrors, setJobSubmissionErrors] = useState([]);
@@ -36,8 +43,45 @@ export const CreateForm = (props) => {
 
   useEffect(() => {
     getCompanies();
+    getJobs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Check if we're editing something, and if we are, then we need to pre-populate
+  // the respective data in the form.
+  useEffect(() => {
+    // If we have a params value, then we know we're editing something
+    if (props.match.params.companyId || props.match.params.jobId) {
+      const editingCompany = companyList.find((company) => company.id === parseInt(props.match.params.companyId, 10));
+
+      const editingJob = jobList.find((job) => job.id === parseInt(props.match.params.jobId, 10));
+
+      if (editingCompany) {
+        setCurrentCompany({
+          name: editingCompany.name,
+          address1: editingCompany.address1,
+          address2: editingCompany.address2 || '',
+          city: editingCompany.city,
+          state: editingCompany.state,
+          zipcode: editingCompany.zipcode,
+          website: editingCompany.website,
+        });
+      }
+
+      if (editingJob) {
+        setCurrentJob({
+          role_title: editingJob.role_title,
+          type: editingJob.type,
+          qualifications: editingJob.qualifications,
+          post_link: editingJob.post_link,
+          salary: editingJob.salary || '',
+          description: editingJob.description,
+          company: editingJob.company.id,
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [companyList, jobList, props]);
 
   const handleControlledInputChangeCompany = (event) => {
     const newCompanyState = { ...currentCompany };
@@ -57,80 +101,127 @@ export const CreateForm = (props) => {
     const newJobDetails = currentJob;
     newJobDetails.company = parseInt(currentJob.company, 10);
 
-    createJob(newJobDetails)
-      .then((res) => {
-        if (res.ok) {
-          // If response was OK, then we reset the form
-          setCurrentJob(
-            {
-              role_title: '',
-              type: '',
-              qualifications: '',
-              post_link: '',
-              salary: '',
-              description: '',
-              company: '',
-            },
-          );
-        } else {
-          throw res;
-        }
-      })
-      .catch((err) => {
-        err.json().then((jsonError) => {
-          const errors = [];
-          // eslint-disable-next-line guard-for-in
-          for (const key in jsonError) {
-            errors.push({ field: key, error: jsonError[key][0][0] });
+    if (props.match.params.jobId) {
+      const { jobId } = props.match.params;
+
+      updateJob(jobId, newJobDetails)
+        .then((res) => {
+          if (res.ok) {
+            // If update was successful, redirect user to job details view
+            history.push(`/jobs/${jobId}`);
+          } else {
+            throw res;
           }
-          setJobSubmissionErrors(errors);
-          jobErrorRef.current.scrollIntoView();
+        })
+        .catch((err) => {
+          err.json().then((jsonError) => {
+            const errors = [];
+            // eslint-disable-next-line guard-for-in
+            for (const key in jsonError) {
+              errors.push({ field: key, error: jsonError[key][0][0] });
+            }
+            setJobSubmissionErrors(errors);
+          });
         });
-      });
+    } else {
+      createJob(newJobDetails)
+        .then((res) => {
+          if (res.ok) {
+            // If response was OK, then we reset the form
+            setCurrentJob(
+              {
+                role_title: '',
+                type: '',
+                qualifications: '',
+                post_link: '',
+                salary: '',
+                description: '',
+                company: '',
+              },
+            );
+          } else {
+            throw res;
+          }
+        })
+        .catch((err) => {
+          err.json().then((jsonError) => {
+            const errors = [];
+            // eslint-disable-next-line guard-for-in
+            for (const key in jsonError) {
+              errors.push({ field: key, error: jsonError[key][0][0] });
+            }
+            setJobSubmissionErrors(errors);
+            jobErrorRef.current.scrollIntoView();
+          });
+        });
+    }
   };
 
   const submitCompany = (e) => {
     e.preventDefault();
     setCompanySubmissionErrors([]);
 
-    createCompany(currentCompany)
-      .then((res) => {
-        if (res.ok) {
-          // If response was OK, then we reset the form
-          setCurrentCompany(
-            {
-              name: '',
-              address1: '',
-              address2: '',
-              city: '',
-              state: '',
-              zipcode: '',
-              website: '',
-            },
-          );
-
-          // Grab the updated companies list so the job section below updates with the new company
-          getCompanies();
-        } else {
-          throw res;
-        }
-      })
-      .catch((err) => {
-        err.json().then((jsonError) => {
-          const errors = [];
-          // eslint-disable-next-line guard-for-in
-          for (const key in jsonError) {
-            errors.push({ field: key, error: jsonError[key][0][0] });
+    if (props.match.params.companyId) {
+      const { companyId } = props.match.params;
+      updateCompany(companyId, currentCompany)
+        .then((res) => {
+          if (res.ok) {
+            // If update was successful, redirect user to company details view
+            history.push(`/companies/${companyId}`);
+          } else {
+            throw res;
           }
-          setCompanySubmissionErrors(errors);
+        })
+        .catch((err) => {
+          err.json().then((jsonError) => {
+            const errors = [];
+            // eslint-disable-next-line guard-for-in
+            for (const key in jsonError) {
+              errors.push({ field: key, error: jsonError[key][0][0] });
+            }
+            setCompanySubmissionErrors(errors);
+          });
         });
-      });
+    } else {
+      createCompany(currentCompany)
+        .then((res) => {
+          if (res.ok) {
+            // If response was OK, then we reset the form
+            setCurrentCompany(
+              {
+                name: '',
+                address1: '',
+                address2: '',
+                city: '',
+                state: '',
+                zipcode: '',
+                website: '',
+              },
+            );
+
+            // Grab the updated companies list so the job section below updates with the new company
+            getCompanies();
+          } else {
+            throw res;
+          }
+        })
+        .catch((err) => {
+          err.json().then((jsonError) => {
+            const errors = [];
+            // eslint-disable-next-line guard-for-in
+            for (const key in jsonError) {
+              errors.push({ field: key, error: jsonError[key][0][0] });
+            }
+            setCompanySubmissionErrors(errors);
+          });
+        });
+    }
   };
 
   return (
     <div className="min-h-(screen-16) bg-gray-100">
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="mt-10 sm:mt-0">
+        <div className={`mt-10 sm:mt-0 ${props.match.params.jobId ? 'hidden' : ''}`}>
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">
               <div className="px-4 sm:px-0">
@@ -241,10 +332,15 @@ export const CreateForm = (props) => {
                         * denotes required field
                       </small>
                     </div>
+                    <div className="px-4 py-3 text-right sm:px-6 ml-auto">
+                      <button onClick={() => history.goBack()} type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Cancel
+                        </button>
+                    </div>
                     <div className="px-4 py-3 text-right sm:px-6">
                       <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Save
-                    </button>
+                      </button>
                     </div>
                   </div>
                   {companySubmissionErrors.length > 0 ? (
@@ -279,13 +375,15 @@ export const CreateForm = (props) => {
           </div>
         </div>
 
-        <div className="hidden sm:block" aria-hidden="true">
-          <div className="py-5">
-            <div className="border-t border-gray-200"></div>
+        {props.match.path === '/create' ? (
+          <div className="hidden sm:block" aria-hidden="true">
+            <div className="py-5">
+              <div className="border-t border-gray-200"></div>
+            </div>
           </div>
-        </div>
+        ) : ''}
 
-        <div className="mt-10 sm:mt-0">
+        <div className={`mt-10 sm:mt-0 ${props.match.params.companyId ? 'hidden' : ''}`}>
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">
               <div className="px-4 sm:px-0">
@@ -353,6 +451,11 @@ export const CreateForm = (props) => {
                       <small>
                         * denotes required field
                       </small>
+                    </div>
+                    <div className="px-4 py-3 text-right sm:px-6 ml-auto">
+                      <button onClick={() => history.goBack()} type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Cancel
+                        </button>
                     </div>
                     <div className="px-4 py-3 text-right sm:px-6">
                       <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

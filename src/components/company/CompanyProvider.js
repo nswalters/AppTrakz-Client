@@ -28,8 +28,22 @@ export const CompanyProvider = (props) => {
     })
   );
 
+  // Update a company
+  const updateCompany = (companyId, newCompanyDetails) => (
+    fetch(`http://localhost:8000/companies/${companyId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newCompanyDetails),
+    })
+  );
+
   return (
-    <CompanyContext.Provider value={{ companyList, createCompany, getCompanies }} >
+    <CompanyContext.Provider value={{
+      companyList, createCompany, getCompanies, updateCompany,
+    }} >
       { props.children}
     </CompanyContext.Provider>
   );
