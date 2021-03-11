@@ -4,9 +4,10 @@ import { Profile } from './profile/Profile';
 import { ApplicationListView } from './application/ApplicationListView';
 import { ApplicationProvider } from './application/ApplicationProvider';
 import { CompanyDetails } from './company/CompanyDetails';
+// import { EditForm } from './forms/EditForm2';
 import { CompanyListView } from './company/CompanyListView';
 import { CompanyProvider } from './company/CompanyProvider';
-import { CreateForm } from './createForm/CreateForm';
+import { CreateAndEditForm } from './forms/CreateAndEditForm';
 import { JobDetails } from './job/JobDetails';
 import { JobListView } from './job/JobListView';
 import { JobProvider } from './job/JobProvider';
@@ -45,9 +46,10 @@ export const ApplicationViews = () => (
 
     <CompanyProvider>
       <JobProvider>
-        <Route exact path="/create">
+        {/* <Route exact path="/create">
           <CreateForm />
-        </Route>
+        </Route> */}
+        <Route path={['/create', '/companies/:companyId/edit', '/jobs/:jobId/edit']} render={(props) => <CreateAndEditForm {...props} />} />
       </JobProvider>
     </CompanyProvider>
 

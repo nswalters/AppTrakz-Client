@@ -2,14 +2,18 @@
 import React, {
   useContext, useEffect, useRef, useState,
 } from 'react';
+import { useHistory } from 'react-router-dom';
 import { CompanyContext } from '../company/CompanyProvider';
 import { JobContext } from '../job/JobProvider';
 
-export const CreateForm = (props) => {
+export const CreateAndEditForm = (props) => {
   const jobErrorRef = useRef(null);
+  const history = useHistory();
 
-  const { companyList, createCompany, getCompanies } = useContext(CompanyContext);
-  const { createJob } = useContext(JobContext);
+  const {
+    companyList, createCompany, getCompanies, updateCompany,
+  } = useContext(CompanyContext);
+  const { createJob, getJobs, jobList } = useContext(JobContext);
 
   const [companySubmissionErrors, setCompanySubmissionErrors] = useState([]);
   const [jobSubmissionErrors, setJobSubmissionErrors] = useState([]);
@@ -36,8 +40,37 @@ export const CreateForm = (props) => {
 
   useEffect(() => {
     getCompanies();
+    getJobs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Check if we're editing something, and if we are, then we need to pre-populate
+  // the respective data in the form.
+  useEffect(() => {
+    // If we have a params value, then we know we're editing something
+    if (props.match.params.companyId || props.match.params.jobId) {
+      const editingCompany = companyList.find((company) => company.id === parseInt(props.match.params.companyId, 10));
+      const editingJob = jobList.find((job) => job.id === parseInt(props.match.params.jobId, 10));
+
+      if (editingCompany) {
+        // console.error(editingCompany);
+        setCurrentCompany({
+          name: editingCompany.name,
+          address1: editingCompany.address1,
+          address2: editingCompany.address2,
+          city: editingCompany.city,
+          state: editingCompany.state,
+          zipcode: editingCompany.zipcode,
+          website: editingCompany.website,
+        });
+      }
+
+      if (editingJob) {
+        console.error(editingJob);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [companyList, jobList, props]);
 
   const handleControlledInputChangeCompany = (event) => {
     const newCompanyState = { ...currentCompany };
@@ -93,44 +126,66 @@ export const CreateForm = (props) => {
     e.preventDefault();
     setCompanySubmissionErrors([]);
 
-    createCompany(currentCompany)
-      .then((res) => {
-        if (res.ok) {
-          // If response was OK, then we reset the form
-          setCurrentCompany(
-            {
-              name: '',
-              address1: '',
-              address2: '',
-              city: '',
-              state: '',
-              zipcode: '',
-              website: '',
-            },
-          );
-
-          // Grab the updated companies list so the job section below updates with the new company
-          getCompanies();
-        } else {
-          throw res;
-        }
-      })
-      .catch((err) => {
-        err.json().then((jsonError) => {
-          const errors = [];
-          // eslint-disable-next-line guard-for-in
-          for (const key in jsonError) {
-            errors.push({ field: key, error: jsonError[key][0][0] });
+    if (props.match.params.companyId) {
+      const { companyId } = props.match.params;
+      updateCompany(companyId, currentCompany)
+        .then((res) => {
+          if (res.ok) {
+            history.push(`/companies/${companyId}`);
+          } else {
+            throw res;
           }
-          setCompanySubmissionErrors(errors);
+        })
+        .catch((err) => {
+          err.json().then((jsonError) => {
+            const errors = [];
+            // eslint-disable-next-line guard-for-in
+            for (const key in jsonError) {
+              errors.push({ field: key, error: jsonError[key][0][0] });
+            }
+            setCompanySubmissionErrors(errors);
+          });
         });
-      });
+    } else {
+      createCompany(currentCompany)
+        .then((res) => {
+          if (res.ok) {
+            // If response was OK, then we reset the form
+            setCurrentCompany(
+              {
+                name: '',
+                address1: '',
+                address2: '',
+                city: '',
+                state: '',
+                zipcode: '',
+                website: '',
+              },
+            );
+
+            // Grab the updated companies list so the job section below updates with the new company
+            getCompanies();
+          } else {
+            throw res;
+          }
+        })
+        .catch((err) => {
+          err.json().then((jsonError) => {
+            const errors = [];
+            // eslint-disable-next-line guard-for-in
+            for (const key in jsonError) {
+              errors.push({ field: key, error: jsonError[key][0][0] });
+            }
+            setCompanySubmissionErrors(errors);
+          });
+        });
+    }
   };
 
   return (
     <div className="min-h-(screen-16) bg-gray-100">
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="mt-10 sm:mt-0">
+        <div className={`mt-10 sm:mt-0 ${props.match.params.jobId ? 'hidden' : ''}`}>
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">
               <div className="px-4 sm:px-0">
@@ -279,13 +334,15 @@ export const CreateForm = (props) => {
           </div>
         </div>
 
-        <div className="hidden sm:block" aria-hidden="true">
-          <div className="py-5">
-            <div className="border-t border-gray-200"></div>
+        {props.match.path === '/create' ? (
+          <div className="hidden sm:block" aria-hidden="true">
+            <div className="py-5">
+              <div className="border-t border-gray-200"></div>
+            </div>
           </div>
-        </div>
+        ) : ''}
 
-        <div className="mt-10 sm:mt-0">
+        <div className={`mt-10 sm:mt-0 ${props.match.params.companyId ? 'hidden' : ''}`}>
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">
               <div className="px-4 sm:px-0">

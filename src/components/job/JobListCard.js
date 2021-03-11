@@ -18,7 +18,7 @@ export const JobListCard = (props) => {
           </button>
         </div>
         <div className="flex-1 flex flex-col p-4">
-          <a href={job.url} className="text-gray-900 text-xl font-medium hover:underline">{job.role_title}</a>
+          <a href={job.url} className="text-gray-900 text-xl font-medium underline">{job.role_title}</a>
           <p className="my-4 text-gray-700 text-md font-medium underline">
             <Link to={job.company.url}>{job.company.name}</Link>
           </p>
