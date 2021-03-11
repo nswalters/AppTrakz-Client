@@ -13,7 +13,10 @@ export const CreateAndEditForm = (props) => {
   const {
     companyList, createCompany, getCompanies, updateCompany,
   } = useContext(CompanyContext);
-  const { createJob, getJobs, jobList } = useContext(JobContext);
+
+  const {
+    createJob, getJobs, jobList, updateJob,
+  } = useContext(JobContext);
 
   const [companySubmissionErrors, setCompanySubmissionErrors] = useState([]);
   const [jobSubmissionErrors, setJobSubmissionErrors] = useState([]);
@@ -50,14 +53,14 @@ export const CreateAndEditForm = (props) => {
     // If we have a params value, then we know we're editing something
     if (props.match.params.companyId || props.match.params.jobId) {
       const editingCompany = companyList.find((company) => company.id === parseInt(props.match.params.companyId, 10));
+
       const editingJob = jobList.find((job) => job.id === parseInt(props.match.params.jobId, 10));
 
       if (editingCompany) {
-        // console.error(editingCompany);
         setCurrentCompany({
           name: editingCompany.name,
           address1: editingCompany.address1,
-          address2: editingCompany.address2,
+          address2: editingCompany.address2 || '',
           city: editingCompany.city,
           state: editingCompany.state,
           zipcode: editingCompany.zipcode,
@@ -66,7 +69,15 @@ export const CreateAndEditForm = (props) => {
       }
 
       if (editingJob) {
-        console.error(editingJob);
+        setCurrentJob({
+          role_title: editingJob.role_title,
+          type: editingJob.type,
+          qualifications: editingJob.qualifications,
+          post_link: editingJob.post_link,
+          salary: editingJob.salary || '',
+          description: editingJob.description,
+          company: editingJob.company.id,
+        });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,36 +101,60 @@ export const CreateAndEditForm = (props) => {
     const newJobDetails = currentJob;
     newJobDetails.company = parseInt(currentJob.company, 10);
 
-    createJob(newJobDetails)
-      .then((res) => {
-        if (res.ok) {
-          // If response was OK, then we reset the form
-          setCurrentJob(
-            {
-              role_title: '',
-              type: '',
-              qualifications: '',
-              post_link: '',
-              salary: '',
-              description: '',
-              company: '',
-            },
-          );
-        } else {
-          throw res;
-        }
-      })
-      .catch((err) => {
-        err.json().then((jsonError) => {
-          const errors = [];
-          // eslint-disable-next-line guard-for-in
-          for (const key in jsonError) {
-            errors.push({ field: key, error: jsonError[key][0][0] });
+    if (props.match.params.jobId) {
+      const { jobId } = props.match.params;
+
+      updateJob(jobId, newJobDetails)
+        .then((res) => {
+          if (res.ok) {
+            // If update was successful, redirect user to job details view
+            history.push(`/jobs/${jobId}`);
+          } else {
+            throw res;
           }
-          setJobSubmissionErrors(errors);
-          jobErrorRef.current.scrollIntoView();
+        })
+        .catch((err) => {
+          err.json().then((jsonError) => {
+            const errors = [];
+            // eslint-disable-next-line guard-for-in
+            for (const key in jsonError) {
+              errors.push({ field: key, error: jsonError[key][0][0] });
+            }
+            setJobSubmissionErrors(errors);
+          });
         });
-      });
+    } else {
+      createJob(newJobDetails)
+        .then((res) => {
+          if (res.ok) {
+            // If response was OK, then we reset the form
+            setCurrentJob(
+              {
+                role_title: '',
+                type: '',
+                qualifications: '',
+                post_link: '',
+                salary: '',
+                description: '',
+                company: '',
+              },
+            );
+          } else {
+            throw res;
+          }
+        })
+        .catch((err) => {
+          err.json().then((jsonError) => {
+            const errors = [];
+            // eslint-disable-next-line guard-for-in
+            for (const key in jsonError) {
+              errors.push({ field: key, error: jsonError[key][0][0] });
+            }
+            setJobSubmissionErrors(errors);
+            jobErrorRef.current.scrollIntoView();
+          });
+        });
+    }
   };
 
   const submitCompany = (e) => {
@@ -131,6 +166,7 @@ export const CreateAndEditForm = (props) => {
       updateCompany(companyId, currentCompany)
         .then((res) => {
           if (res.ok) {
+            // If update was successful, redirect user to company details view
             history.push(`/companies/${companyId}`);
           } else {
             throw res;

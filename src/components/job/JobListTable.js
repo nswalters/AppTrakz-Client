@@ -63,7 +63,7 @@ export const JobListTable = (props) => {
               )}
             </td>
             <td className="pr-4 py-4 whitespace-wrap text-sm font-medium">
-              <a href="/" className="text-indigo-600 hover:text-indigo-900">Edit</a>
+              <Link to={`${job.url}/edit`} className="text-indigo-600 hover:text-indigo-900">Edit</Link>
             </td>
           </tr>
         ))}

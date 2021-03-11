@@ -28,8 +28,22 @@ export const JobProvider = (props) => {
     })
   );
 
+  // Update a job
+  const updateJob = (jobId, newJobDetails) => (
+    fetch(`http://localhost:8000/jobs/${jobId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newJobDetails),
+    })
+  );
+
   return (
-    <JobContext.Provider value={{ createJob, getJobs, jobList }}>
+    <JobContext.Provider value={{
+      createJob, getJobs, jobList, updateJob,
+    }}>
       { props.children}
     </JobContext.Provider>
   );
