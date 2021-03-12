@@ -113,7 +113,6 @@ export const NavBar = (props) => {
                   >
                     <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                       <Link to="/user/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</Link>
-                      <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
                       <a onClick={() => {
                         localStorage.removeItem('apptrakz_token');
                         props.history.push({ pathname: '/' });
@@ -154,7 +153,6 @@ export const NavBar = (props) => {
             </div>
             <div className="mt-3 space-y-1">
               <a href="/" className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">Your Profile</a>
-              <a href="/" className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">Settings</a>
               <a onClick={() => {
                 localStorage.removeItem('apptrakz_token');
                 props.history.push({ pathname: '/' });
