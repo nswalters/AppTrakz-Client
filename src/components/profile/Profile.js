@@ -19,7 +19,7 @@ export const Profile = (props) => {
 
   useEffect(() => {
     getProfile();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -67,95 +67,95 @@ export const Profile = (props) => {
   return (
     <div className="container mx-auto divide-y">
       <form className="divide-y divide-gray-200 lg:col-span-9" action="#" method="POST">
-          <div className="py-6 px-4 sm:p-6 lg:pb-8">
-            <div>
-              <h2 className="text-lg leading-6 font-medium text-gray-900">Profile</h2>
-              <p className="mt-1 text-sm text-gray-500">
-                This information will be displayed publicly so be careful what you share.
+        <div className="py-6 px-4 sm:p-6 lg:pb-8">
+          <div>
+            <h2 className="text-lg leading-6 font-medium text-gray-900">Profile</h2>
+            <p className="mt-1 text-sm text-gray-500">
+              This information will be displayed publicly so be careful what you share.
               </p>
-            </div>
+          </div>
 
-            <div className="mt-6 flex flex-col lg:flex-row">
-              <div className="flex-grow space-y-6">
-                <div>
-                  <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                    Username
+          <div className="mt-6 flex flex-col lg:flex-row">
+            <div className="flex-grow space-y-6">
+              <div>
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                  Username
                   </label>
-                  <div className="mt-1 rounded-md shadow-sm flex">
-                    <span className="bg-gray-50 border border-r-0 border-gray-300 rounded-l-md px-3 inline-flex items-center text-gray-500 sm:text-sm">
-                      apptrakz.com/
+                <div className="mt-1 rounded-md shadow-sm flex">
+                  <span className="bg-gray-50 border border-r-0 border-gray-300 rounded-l-md px-3 inline-flex items-center text-gray-500 sm:text-sm">
+                    apptrakz.com/
                     </span>
-                    <input onChange={handleControlledInputChange} type="text" name="username" id="username" autoComplete="username" className="focus:ring-light-blue-500 focus:border-light-blue-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300" defaultValue={currentUserProfile.username} />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                    About You
-                  </label>
-                  <div className="mt-1">
-                    <textarea onChange={handleControlledInputChange} id="bio" name="bio" rows="3" className="shadow-sm focus:ring-light-blue-500 focus:border-light-blue-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" defaultValue={currentUserProfile.bio}></textarea>
-                  </div>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Tell us a little about yourself.
-                  </p>
+                  <input onChange={handleControlledInputChange} type="text" name="username" id="username" autoComplete="username" className="focus:ring-light-blue-500 focus:border-light-blue-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300" defaultValue={currentUserProfile.username} />
                 </div>
               </div>
 
-              <div className="mt-6 flex-grow lg:mt-0 lg:ml-6 lg:flex-grow-0 lg:flex-shrink-0">
-                <p className="text-sm font-medium text-gray-700" aria-hidden="true">
-                  Photo
-                </p>
-                <div className="mt-1 lg:hidden">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 inline-block rounded-full overflow-hidden h-12 w-12" aria-hidden="true">
-                      <img className="rounded-full h-full w-full" src={currentUserProfile.profileImage} alt="" />
-                    </div>
-                    <div className="ml-5 rounded-md shadow-sm">
-                      <div className="group relative border border-gray-300 rounded-md py-2 px-3 flex items-center justify-center hover:bg-gray-50 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-light-blue-500">
-                        <label htmlFor="user_photo" className="relative text-sm leading-4 font-medium text-gray-700 pointer-events-none">
-                          <span>Change</span>
-                          <span className="sr-only"> user photo</span>
-                        </label>
-                        <input onChange={createProfileImageString} id="user_photo" name="user_photo" type="file" className="absolute w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="hidden relative rounded-full overflow-hidden lg:block">
-                  <img className="relative rounded-full w-40 h-40" src={currentUserProfile.profileImage} alt="" />
-                  <label htmlFor="user-photo" className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-sm font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100">
-                    <span>Change</span>
-                    <span className="sr-only">user photo</span>
-                    <input onChange={createProfileImageString} type="file" id="profileImage" name="profileImage" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md" />
+              <div>
+                <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                  About You
                   </label>
+                <div className="mt-1">
+                  <textarea onChange={handleControlledInputChange} id="bio" name="bio" rows="3" className="shadow-sm focus:ring-light-blue-500 focus:border-light-blue-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" defaultValue={currentUserProfile.bio}></textarea>
                 </div>
+                <p className="mt-2 text-sm text-gray-500">
+                  Tell us a little about yourself.
+                  </p>
               </div>
             </div>
 
-            <div className="mt-6 grid grid-cols-12 gap-6">
-              <div className="col-span-12 sm:col-span-6">
-                <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">First name</label>
-                <input onChange={handleControlledInputChange} type="text" name="firstName" id="first_name" autoComplete="given-name" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm" defaultValue={currentUserProfile.firstName} />
+            <div className="mt-6 flex-grow lg:mt-0 lg:ml-6 lg:flex-grow-0 lg:flex-shrink-0">
+              <p className="text-sm font-medium text-gray-700" aria-hidden="true">
+                Photo
+                </p>
+              <div className="mt-1 lg:hidden">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 inline-block rounded-full overflow-hidden h-12 w-12" aria-hidden="true">
+                    <img className="rounded-full h-full w-full" src={currentUserProfile.profileImage} alt="" />
+                  </div>
+                  <div className="ml-5 rounded-md shadow-sm">
+                    <div className="group relative border border-gray-300 rounded-md py-2 px-3 flex items-center justify-center hover:bg-gray-50 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-light-blue-500">
+                      <label htmlFor="user_photo" className="relative text-sm leading-4 font-medium text-gray-700 pointer-events-none">
+                        <span>Change</span>
+                        <span className="sr-only"> user photo</span>
+                      </label>
+                      <input onChange={createProfileImageString} id="user_photo" name="user_photo" type="file" className="absolute w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md" />
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="col-span-12 sm:col-span-6">
-                <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Last name</label>
-                <input onChange={handleControlledInputChange} type="text" name="lastName" id="last_name" autoComplete="family-name" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm" defaultValue={currentUserProfile.lastName} />
-              </div>
-
-              <div className="col-span-12 md:col-span-6">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                <input onChange={handleControlledInputChange} type="email" name="email" id="email" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm" defaultValue={currentUserProfile.email} />
-              </div>
-
-              <div className="col-span-12 md:col-span-6">
-                <label htmlFor="date_joined" className="block text-sm font-medium text-gray-700 opacity-75">Date Joined</label>
-                <input type="text" name="date_joined" id="date_joined" autoComplete="organization" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm disabled:opacity-50" defaultValue={currentUserProfile.dateJoined} disabled />
+              <div className="hidden relative rounded-full overflow-hidden lg:block">
+                <img className="relative rounded-full w-40 h-40" src={currentUserProfile.profileImage} alt="" />
+                <label htmlFor="user-photo" className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-sm font-medium text-white opacity-0 hover:opacity-100">
+                  <span>Change</span>
+                  <span className="sr-only">user photo</span>
+                  <input onChange={createProfileImageString} type="file" id="profileImage" name="profileImage" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md" />
+                </label>
               </div>
             </div>
           </div>
+
+          <div className="mt-6 grid grid-cols-12 gap-6">
+            <div className="col-span-12 sm:col-span-6">
+              <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">First name</label>
+              <input onChange={handleControlledInputChange} type="text" name="firstName" id="first_name" autoComplete="given-name" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm" defaultValue={currentUserProfile.firstName} />
+            </div>
+
+            <div className="col-span-12 sm:col-span-6">
+              <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Last name</label>
+              <input onChange={handleControlledInputChange} type="text" name="lastName" id="last_name" autoComplete="family-name" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm" defaultValue={currentUserProfile.lastName} />
+            </div>
+
+            <div className="col-span-12 md:col-span-6">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+              <input onChange={handleControlledInputChange} type="email" name="email" id="email" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm" defaultValue={currentUserProfile.email} />
+            </div>
+
+            <div className="col-span-12 md:col-span-6">
+              <label htmlFor="date_joined" className="block text-sm font-medium text-gray-700 opacity-75">Date Joined</label>
+              <input type="text" name="date_joined" id="date_joined" autoComplete="organization" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm disabled:opacity-50" defaultValue={currentUserProfile.dateJoined} disabled />
+            </div>
+          </div>
+        </div>
       </form>
       <div className="mt-4 py-4 px-4 flex justify-end sm:px-6">
         <button onClick={() => history.goBack()} type="button" className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
