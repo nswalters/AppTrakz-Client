@@ -5,7 +5,6 @@ import { ApplicationListTable } from './ApplicationListTable';
 export const ApplicationListView = (props) => (
   <div className="min-h-(screen-16) bg-gray-100">
     {/* Table is shown on larger screens */}
-    {/* < div className="hidden container mx-auto mt-16 lg:block" > */}
     < div className="container mx-auto block" >
       <div className="flex justify-center">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
