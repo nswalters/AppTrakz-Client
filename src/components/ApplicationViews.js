@@ -4,13 +4,13 @@ import { Profile } from './profile/Profile';
 import { ApplicationListView } from './application/ApplicationListView';
 import { ApplicationProvider } from './application/ApplicationProvider';
 import { CompanyDetails } from './company/CompanyDetails';
-// import { EditForm } from './forms/EditForm2';
 import { CompanyListView } from './company/CompanyListView';
 import { CompanyProvider } from './company/CompanyProvider';
 import { CreateAndEditForm } from './forms/CreateAndEditForm';
 import { JobDetails } from './job/JobDetails';
 import { JobListView } from './job/JobListView';
 import { JobProvider } from './job/JobProvider';
+import { StatusProvider } from './status/StatusProvider';
 
 export const ApplicationViews = () => (
   <>
@@ -39,9 +39,11 @@ export const ApplicationViews = () => (
     </JobProvider>
 
     <ApplicationProvider>
-      <Route exact path="/applications">
-        <ApplicationListView />
-      </Route>
+      <StatusProvider>
+        <Route exact path="/applications">
+          <ApplicationListView />
+        </Route>
+      </StatusProvider>
     </ApplicationProvider>
 
     <CompanyProvider>
