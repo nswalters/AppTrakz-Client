@@ -11,7 +11,7 @@ export const JobContactListCard = (props) => {
           <div className="flex items-center space-x-3 justify-center">
             <h3 className="text-gray-900 text-sm font-medium truncate">{jobContact.contact && jobContact.contact.first_name} {jobContact.contact.last_name}</h3>
           </div>
-          <span className="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">{jobContact.job.company.name} - {jobContact.job.role_title}</span>
+          <span className="flex-shrink-0 inline-block my-2 px-6 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full text-center">{jobContact.job.company.name}<br />{jobContact.job.role_title}</span>
         </div>
       </div>
       <div>
