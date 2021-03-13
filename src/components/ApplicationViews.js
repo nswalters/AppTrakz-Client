@@ -54,10 +54,12 @@ export const ApplicationViews = () => (
       </JobProvider>
     </CompanyProvider>
 
-    <JobContactProvider>
-      <Route exact path="/job_contacts">
-        <JobContactList />
-      </Route>
-    </JobContactProvider>
+    <JobProvider>
+      <JobContactProvider>
+        <Route exact path="/job_contacts">
+          <JobContactList />
+        </Route>
+      </JobContactProvider>
+    </JobProvider>
   </>
 );
