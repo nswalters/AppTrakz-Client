@@ -7,6 +7,8 @@ import { CompanyDetails } from './company/CompanyDetails';
 import { CompanyListView } from './company/CompanyListView';
 import { CompanyProvider } from './company/CompanyProvider';
 import { CreateAndEditForm } from './forms/CreateAndEditForm';
+import { JobContactList } from './job_contact/JobContactList';
+import { JobContactProvider } from './job_contact/JobContactProvider';
 import { JobDetails } from './job/JobDetails';
 import { JobListView } from './job/JobListView';
 import { JobProvider } from './job/JobProvider';
@@ -52,5 +54,10 @@ export const ApplicationViews = () => (
       </JobProvider>
     </CompanyProvider>
 
+    <JobContactProvider>
+      <Route exact path="/job_contacts">
+        <JobContactList />
+      </Route>
+    </JobContactProvider>
   </>
 );

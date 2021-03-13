@@ -69,6 +69,9 @@ export const NavBar = (props) => {
                 <Link to="/applications" className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${path.startsWith('/applications') ? selectedNavClasses : notSelectedNavClasses}`}>
                   Applications
                 </Link>
+                <Link to="/job_contacts" className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${path.startsWith('/applications') ? selectedNavClasses : notSelectedNavClasses}`}>
+                  Contacts
+                </Link>
               </div>
             ) : ''}
           </div>
