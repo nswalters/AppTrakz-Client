@@ -28,8 +28,25 @@ export const JobContactProvider = (props) => {
     })
   );
 
+  // Create new JobContact
+  const createJobContact = (newJobContact) => (
+    fetch('http://localhost:8000/job_contacts', {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newJobContact),
+    })
+  );
+
   return (
-    <JobContactContext.Provider value={{ getJobContacts, jobContactList, updateJobContact }}>
+    <JobContactContext.Provider value={{
+      createJobContact,
+      getJobContacts,
+      jobContactList,
+      updateJobContact,
+    }}>
       { props.children}
     </JobContactContext.Provider>
   );
