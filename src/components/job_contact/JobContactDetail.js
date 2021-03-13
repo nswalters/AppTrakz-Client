@@ -100,6 +100,22 @@ export const JobContactDetail = (props) => {
                           {selectedContact.job && selectedContact.job.company.name}
                         </dd>
                       </div>
+                      <div>
+                        <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                          Email Address
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                          {selectedContact.contact && selectedContact.contact.email}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                          Phone
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                          {selectedContact.contact && selectedContact.contact.phone}
+                        </dd>
+                      </div>
                     </dl>
                   </div>
                 </div>
