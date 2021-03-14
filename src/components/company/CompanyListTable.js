@@ -54,7 +54,7 @@ export const CompanyListTable = (props) => {
                 <Link to={`${company.url}/edit`} className="text-indigo-600 hover:text-indigo-900">Edit</Link>
               </td>
               <td className="pr-4 py-4 whitespace-wrap text-sm font-medium">
-                <button onClick={() => { console.error(`Deleting company: ${company.id} - ${company.name}`); setTarget(company.id); setShowConfirmActionModal(true); }} className="text-red-600 hover:text-red-900 font-semibold">Delete</button>
+                <button onClick={() => { setTarget(company.id); setShowConfirmActionModal(true); }} className="text-red-600 hover:text-red-900 font-semibold">Delete</button>
               </td>
             </tr>
           ))}

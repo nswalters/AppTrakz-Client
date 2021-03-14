@@ -2,11 +2,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Transition } from '@headlessui/react';
+import { ConfirmActionModal } from '../alerts/ConfirmActionModal';
 
 export const CompanyListCard = (props) => {
-  const { company } = props;
+  const { company, deleteCompany, getCompanies } = props;
 
   const [showOptions, setShowOptions] = useState(false);
+  const [showConfirmActionModal, setShowConfirmActionModal] = useState(false);
+  const [target, setTarget] = useState(null);
 
   return (
     <>
@@ -34,7 +37,9 @@ export const CompanyListCard = (props) => {
             <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
               <div className="py-1" role="none">
                 <Link to={`${company.url}/edit`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit</Link>
-                <a href="/" className="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-100 hover:text-gray-900" role="menuitem">Delete</a>
+                {/* <div> */}
+                <button onClick={() => { setTarget(company.id); setShowConfirmActionModal(true); }} type="button" className="w-full px-4 py-2 text-sm font-bold text-red-700 text-left hover:bg-red-100 focus:outline-none" role="menuitem">Delete</button>
+                {/* </div> */}
               </div>
             </div>
           </Transition>
@@ -52,6 +57,12 @@ export const CompanyListCard = (props) => {
           </dl>
         </div>
       </li>
+      <ConfirmActionModal
+        show={showConfirmActionModal}
+        toggleShow={setShowConfirmActionModal}
+        actionFunction={() => { deleteCompany(target).then(() => getCompanies()); }}
+        actionName="delete"
+      />
     </>
   );
 };
