@@ -40,9 +40,19 @@ export const CompanyProvider = (props) => {
     })
   );
 
+  // Delete a company (actually soft-delete)
+  const deleteCompany = (companyId) => (
+    fetch(`http://localhost:8000/companies/${companyId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
+      },
+    })
+  );
+
   return (
     <CompanyContext.Provider value={{
-      companyList, createCompany, getCompanies, updateCompany,
+      companyList, createCompany, deleteCompany, getCompanies, updateCompany,
     }} >
       { props.children}
     </CompanyContext.Provider>
