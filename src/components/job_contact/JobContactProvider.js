@@ -40,9 +40,20 @@ export const JobContactProvider = (props) => {
     })
   );
 
+  // Delete a job contact (actually soft-delete)
+  const deleteJobContact = (jobContactId) => (
+    fetch(`http://localhost:8000/job_contacts/${jobContactId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
+      },
+    })
+  );
+
   return (
     <JobContactContext.Provider value={{
       createJobContact,
+      deleteJobContact,
       getJobContacts,
       jobContactList,
       updateJobContact,
