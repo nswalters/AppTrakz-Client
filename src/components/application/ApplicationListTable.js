@@ -38,10 +38,11 @@ export const ApplicationListTable = (props) => {
 
   const submitApplicationUpdate = (e) => {
     e.preventDefault();
-    console.error('Submitted Application Update!');
     const newDetails = newStatusDetails;
     newDetails.status = parseInt(newStatusDetails.status, 10);
-    newDetails.is_active = parseInt(newStatusDetails.is_active, 10);
+    if (newStatusDetails.is_active === '0' || newStatusDetails.is_active === '1') {
+      newDetails.is_active = parseInt(newStatusDetails.is_active, 10);
+    }
     updateApplication(editingApplication.id, newDetails)
       .then(() => getApplications());
   };
@@ -97,7 +98,7 @@ export const ApplicationListTable = (props) => {
                   </select>
                 </td>
                 <td className="px-4 py-4 text-sm font-medium text-gray-500">
-                  <textarea onChange={handleControlledInputChange} id="reason" name="reason" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={newStatusDetails.reason} rows="10" />
+                  <textarea onChange={handleControlledInputChange} id="reason" name="reason" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={newStatusDetails.reason || ''} rows="10" />
                 </td>
                 <td className="px-4 py-4 text-sm font-medium text-gray-500">
                   <select onChange={handleControlledInputChange} id="is_active" name="is_active" className="mt-1 block w-24 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value={(newStatusDetails.is_active === true || newStatusDetails.is_active === '1') ? '1' : '0'} required>
