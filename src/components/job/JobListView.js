@@ -6,7 +6,7 @@ import { JobListTable } from './JobListTable';
 import { JobListCard } from './JobListCard';
 
 export const JobListView = (props) => {
-  const { jobList, getJobs } = useContext(JobContext);
+  const { jobList, getJobs, deleteJob } = useContext(JobContext);
   const { createApplication, getApplications } = useContext(ApplicationContext);
 
   useEffect(() => {
@@ -26,7 +26,9 @@ export const JobListView = (props) => {
                   createApplication={createApplication}
                   getApplications={getApplications}
                   getJobs={getJobs}
-                  jobList={jobList} />}
+                  jobList={jobList}
+                  deleteJob={deleteJob}
+                />}
               </div>
             </div>
           </div>
@@ -41,7 +43,9 @@ export const JobListView = (props) => {
               createApplication={createApplication}
               getApplications={getApplications}
               getJobs={getJobs}
-              job={job} />)}
+              job={job}
+              deleteJob={deleteJob}
+            />)}
           </ul>
         </div>
       </div>
