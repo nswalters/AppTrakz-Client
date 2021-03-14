@@ -31,7 +31,7 @@ export const CompanyListView = (props) => {
         <div className="block container mx-auto lg:hidden">
           <div className="flex justify-center">
             <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-16">
-              {companyList && companyList.map((company) => <CompanyListCard key={company.id} company={company} />)}
+              {companyList && companyList.map((company) => <CompanyListCard key={company.id} company={company} deleteCompany={deleteCompany} getCompanies={getCompanies} />)}
             </ul>
           </div>
         </div>
