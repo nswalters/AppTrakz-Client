@@ -40,9 +40,19 @@ export const JobProvider = (props) => {
     })
   );
 
+  // Delete a job (actually a soft-delete)
+  const deleteJob = (jobId) => (
+    fetch(`http://localhost:8000/jobs/${jobId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
+      },
+    })
+  );
+
   return (
     <JobContext.Provider value={{
-      createJob, getJobs, jobList, updateJob,
+      createJob, deleteJob, getJobs, jobList, updateJob,
     }}>
       { props.children}
     </JobContext.Provider>
