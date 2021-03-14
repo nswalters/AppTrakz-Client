@@ -333,7 +333,7 @@ export const CreateAndEditForm = (props) => {
                       </small>
                     </div>
                     <div className="px-4 py-3 text-right sm:px-6 ml-auto">
-                      <button onClick={() => history.goBack()} type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <button onClick={() => history.goBack()} type="button" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Cancel
                         </button>
                     </div>
@@ -344,20 +344,20 @@ export const CreateAndEditForm = (props) => {
                     </div>
                   </div>
                   {companySubmissionErrors.length > 0 ? (
-                    <div class="rounded-md bg-red-50 p-4">
-                      <div class="flex">
-                        <div class="flex-shrink-0">
+                    <div className="rounded-md bg-red-50 p-4">
+                      <div className="flex">
+                        <div className="flex-shrink-0">
                           {/* <!-- Heroicon name: solid/x-circle --> */}
-                          <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                           </svg>
                         </div>
-                        <div class="ml-3">
-                          <h3 class="text-sm font-medium text-red-800">
+                        <div className="ml-3">
+                          <h3 className="text-sm font-medium text-red-800">
                             There were {companySubmissionErrors.length} errors with your submission
                           </h3>
-                          <div class="mt-2 text-sm text-red-700">
-                            <ul class="list-disc pl-5 space-y-1">
+                          <div className="mt-2 text-sm text-red-700">
+                            <ul className="list-disc pl-5 space-y-1">
                               {companySubmissionErrors && companySubmissionErrors.map((error) => (
                                 <li>
                                   {error.field}: {error.error}
@@ -453,7 +453,7 @@ export const CreateAndEditForm = (props) => {
                       </small>
                     </div>
                     <div className="px-4 py-3 text-right sm:px-6 ml-auto">
-                      <button onClick={() => history.goBack()} type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <button onClick={() => history.goBack()} type="button" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Cancel
                         </button>
                     </div>
@@ -464,20 +464,20 @@ export const CreateAndEditForm = (props) => {
                     </div>
                   </div>
                   {jobSubmissionErrors.length > 0 ? (
-                    <div class="rounded-md bg-red-50 p-4">
-                      <div class="flex">
-                        <div class="flex-shrink-0">
+                    <div className="rounded-md bg-red-50 p-4">
+                      <div className="flex">
+                        <div className="flex-shrink-0">
                           {/* <!-- Heroicon name: solid/x-circle --> */}
-                          <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                           </svg>
                         </div>
-                        <div class="ml-3">
-                          <h3 ref={jobErrorRef} class="text-sm font-medium text-red-800">
+                        <div className="ml-3">
+                          <h3 ref={jobErrorRef} className="text-sm font-medium text-red-800">
                             There were {jobSubmissionErrors.length} errors with your submission
                           </h3>
-                          <div class="mt-2 text-sm text-red-700">
-                            <ul class="list-disc pl-5 space-y-1">
+                          <div className="mt-2 text-sm text-red-700">
+                            <ul className="list-disc pl-5 space-y-1">
                               {jobSubmissionErrors && jobSubmissionErrors.map((error) => (
                                 <li>
                                   {error.field}: {error.error}

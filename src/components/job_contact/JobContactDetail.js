@@ -28,7 +28,7 @@ export const JobContactDetail = (props) => {
       >
         <div className="fixed inset-0 overflow-hidden mt-32">
           <div className="absolute inset-0 overflow-hidden">
-            <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16" aria-labelledby="slide-over-heading">
+            <section className="absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16 overflow-y-scroll" aria-labelledby="slide-over-heading">
               <div className="w-screen max-w-md">
                 <div className="min-h-1/4 flex flex-col bg-white shadow-xl overflow-hidden">
                   <div className="px-4 py-6 sm:px-6 bg-gray-100 shadow">

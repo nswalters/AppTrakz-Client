@@ -69,7 +69,7 @@ export const NavBar = (props) => {
                 <Link to="/applications" className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${path.startsWith('/applications') ? selectedNavClasses : notSelectedNavClasses}`}>
                   Applications
                 </Link>
-                <Link to="/job_contacts" className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${path.startsWith('/applications') ? selectedNavClasses : notSelectedNavClasses}`}>
+                <Link to="/job_contacts" className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${path.startsWith('/job_contacts') ? selectedNavClasses : notSelectedNavClasses}`}>
                   Contacts
                 </Link>
               </div>
@@ -143,6 +143,7 @@ export const NavBar = (props) => {
             <Link to="/companies" onClick={() => { setMenuOpen(!menuOpen); }} className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6 ${path.startsWith('/companies') ? mobileSelectedNavClasses : mobileNotSelectedNavClasses}`}>Companies</Link>
             <Link to="/jobs" onClick={() => { setMenuOpen(!menuOpen); }} className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6 ${path.startsWith('/jobs') ? mobileSelectedNavClasses : mobileNotSelectedNavClasses}`}>Jobs</Link>
             <Link to="/applications" onClick={() => { setMenuOpen(!menuOpen); }} className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6 ${path.startsWith('/applications') ? mobileSelectedNavClasses : mobileNotSelectedNavClasses}`}>Applications</Link>
+            <Link to="/job_contacts" onClick={() => { setMenuOpen(!menuOpen); }} className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6 ${path.startsWith('/job_contacts') ? mobileSelectedNavClasses : mobileNotSelectedNavClasses}`}>Contacts</Link>
           </div>
           <div className="pt-4 pb-3 border-t border-gray-200">
             <div className="flex items-center px-4 sm:px-6">

@@ -66,12 +66,12 @@ export const JobDetails = (props) => {
                       </button>
                     </div>
                   )}
-                  <div class="relative inline-block text-left my-auto mr-4">
+                  <div className="relative inline-block text-left my-auto mr-4">
                     <div>
-                      <button onClick={() => setShowOptions((prev) => !prev)} type="button" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="options-menu" aria-expanded="true" aria-haspopup="true">
-                        <span class="sr-only">Open options</span>
+                      <button onClick={() => setShowOptions((prev) => !prev)} type="button" className="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="options-menu" aria-expanded="true" aria-haspopup="true">
+                        <span className="sr-only">Open options</span>
                         {/* <!-- Heroicon name: solid/dots-vertical --> */}
-                        <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <svg className="h-8 w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                           <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                         </svg>
                       </button>
@@ -86,10 +86,10 @@ export const JobDetails = (props) => {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                        <div class="py-1" role="none">
-                          <Link to={`${singleJob.url}/edit`} class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit</Link>
-                          <a href="/" class="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-100 hover:text-gray-900" role="menuitem">Delete</a>
+                      <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                        <div className="py-1" role="none">
+                          {singleJob && <Link to={`${singleJob.url}/edit`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit</Link> }
+                          <a href="/" className="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-100 hover:text-gray-900" role="menuitem">Delete</a>
                         </div>
                       </div>
                     </Transition>
@@ -102,7 +102,7 @@ export const JobDetails = (props) => {
                         Company
                       </dt>
                       <dd className="mt-1 text-sm text-gray-900 underline">
-                        <Link to={singleJob.company && singleJob.company.url}> {singleJob.company && singleJob.company.name}</Link>
+                        {singleJob.company && <Link to={singleJob.company.url}>{singleJob.company && singleJob.company.name}</Link>}
                       </dd>
                     </div>
                     <div className="sm:col-span-1">
@@ -309,7 +309,7 @@ export const JobDetails = (props) => {
                       return '';
                     }
                     return (
-                      <li>
+                      <li key={status.id}>
                         <div className="relative pb-8">
                           { /* Don't show the connector line if the status
                             is the last one */}
