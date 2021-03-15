@@ -23,25 +23,36 @@ export const Profile = (props) => {
   }, []);
 
   useEffect(() => {
-    // Convert the image at the image path into a blob format so that
-    // we can pass it to 'getBase64' and allow us to keep the same
-    // image that was there originally when we change another field in
-    // a user profile.
-    fetch(userProfile.profile_image)
-      .then((res) => res.blob())
-      .then((blob) => {
-        getBase64(blob, (b64img) => {
-          setCurrentUserProfile({
-            username: userProfile.user && userProfile.user.username,
-            bio: userProfile.bio,
-            firstName: userProfile.user && userProfile.user.first_name,
-            lastName: userProfile.user && userProfile.user.last_name,
-            email: userProfile.user && userProfile.user.email,
-            dateJoined: userProfile.user && userProfile.user.date_joined.split('T')[0],
-            profileImage: b64img,
+    // If the user has a profile image, convert the image at the image
+    // path into a blob format so that we can pass it to 'getBase64'
+    // and allow us to keep the same image that was there originally
+    // when we change another field in a user profile.
+    if (userProfile.profile_image) {
+      fetch(userProfile.profile_image)
+        .then((res) => res.blob())
+        .then((blob) => {
+          getBase64(blob, (b64img) => {
+            setCurrentUserProfile({
+              username: userProfile.user && userProfile.user.username,
+              bio: userProfile.bio,
+              firstName: userProfile.user && userProfile.user.first_name,
+              lastName: userProfile.user && userProfile.user.last_name,
+              email: userProfile.user && userProfile.user.email,
+              dateJoined: userProfile.user && userProfile.user.date_joined.split('T')[0],
+              profileImage: b64img,
+            });
           });
         });
+    } else {
+      setCurrentUserProfile({
+        username: userProfile.user && userProfile.user.username,
+        bio: userProfile.bio,
+        firstName: userProfile.user && userProfile.user.first_name,
+        lastName: userProfile.user && userProfile.user.last_name,
+        email: userProfile.user && userProfile.user.email,
+        dateJoined: userProfile.user && userProfile.user.date_joined.split('T')[0],
       });
+    }
   }, [userProfile]);
 
   const handleControlledInputChange = (event) => {
@@ -109,7 +120,13 @@ export const Profile = (props) => {
               <div className="mt-1 lg:hidden">
                 <div className="flex items-center">
                   <div className="flex-shrink-0 inline-block rounded-full overflow-hidden h-12 w-12" aria-hidden="true">
-                    <img className="rounded-full h-full w-full" src={currentUserProfile.profileImage} alt="" />
+                    {currentUserProfile && currentUserProfile.profileImage ? (
+                      <img className="rounded-full h-full w-full" src={currentUserProfile.profileImage} alt="" />
+                    ) : (
+                      <svg className="rounded-full h-full w-full text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    )}
                   </div>
                   <div className="ml-5 rounded-md shadow-sm">
                     <div className="group relative border border-gray-300 rounded-md py-2 px-3 flex items-center justify-center hover:bg-gray-50 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-light-blue-500">
@@ -124,7 +141,13 @@ export const Profile = (props) => {
               </div>
 
               <div className="hidden relative rounded-full overflow-hidden lg:block">
-                <img className="relative rounded-full w-40 h-40" src={currentUserProfile.profileImage} alt="" />
+                {currentUserProfile && currentUserProfile.profileImage ? (
+                  <img className="relative h-40 w-40 rounded-full" src={currentUserProfile.profileImage} alt="" />
+                ) : (
+                  <svg className="relative h-40 w-40 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                )}
                 <label htmlFor="user-photo" className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-sm font-medium text-white opacity-0 hover:opacity-100">
                   <span>Change</span>
                   <span className="sr-only">user photo</span>

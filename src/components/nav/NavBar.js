@@ -92,7 +92,13 @@ export const NavBar = (props) => {
                   <div>
                     <button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu" aria-haspopup="true">
                       <span className="sr-only">Open user menu</span>
-                      <img className="h-8 w-8 rounded-full" src={userProfile && userProfile.profile_image} alt="" />
+                      {userProfile && userProfile.profile_image ? (
+                        <img className="h-8 w-8 rounded-full" src={userProfile && userProfile.profile_image} alt="" />
+                      ) : (
+                        <svg className="h-8 w-8 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      )}
                     </button>
                   </div>
                   {/* <!--
@@ -148,7 +154,13 @@ export const NavBar = (props) => {
           <div className="pt-4 pb-3 border-t border-gray-200">
             <div className="flex items-center px-4 sm:px-6">
               <div className="flex-shrink-0">
-                <img className="h-10 w-10 rounded-full" src={userProfile && userProfile.profile_image} alt="" />
+                {userProfile && userProfile.profile_image ? (
+                  <img className="h-10 w-10 rounded-full" src={userProfile && userProfile.profile_image} alt="" />
+                ) : (
+                  <svg className="h-10 w-10 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                )}
               </div>
               <div className="ml-3">
                 <div className="text-base font-medium text-gray-800">{userProfile.user && userProfile.user.first_name} {userProfile.user && userProfile.user.last_name}</div>
