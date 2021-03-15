@@ -29,8 +29,8 @@ export const JobDetails = (props) => {
     setJobApplication(application);
   }, [applicationList, props.match.params.jobId]);
 
-  const sortApplicationStatusesByUpdatedAt = (statuses) => (
-    statuses.sort((a, b) => (a.updated_at > b.updated_at ? 1 : -1))
+  const sortApplicationStatusesByCreatedAt = (statuses) => (
+    statuses.sort((a, b) => (a.created_at > b.created_at ? 1 : -1))
   );
 
   return (
@@ -88,7 +88,7 @@ export const JobDetails = (props) => {
                     >
                       <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <div className="py-1" role="none">
-                          {singleJob && <Link to={`${singleJob.url}/edit`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit</Link> }
+                          {singleJob && <Link to={`${singleJob.url}/edit`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit</Link>}
                           <a href="/" className="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-100 hover:text-gray-900" role="menuitem">Delete</a>
                         </div>
                       </div>
@@ -301,10 +301,10 @@ export const JobDetails = (props) => {
                     </li>
                   ) : <div className="pb-8 text-gray-500"><em>No Activity Yet</em></div>}
                   {/*
-                    - For every record in jobApplication.statuses -- sorted by updated_at ascending (so oldest first)
+                    - For every record in jobApplication.statuses -- sorted by created_at ascending (so oldest first)
                     - Create an 'ApplicationActivityFeedItem' component to render the proper feed item
                   */}
-                  {jobApplication.statuses && sortApplicationStatusesByUpdatedAt(jobApplication.statuses).map((status, idx, arr) => {
+                  {jobApplication.statuses && sortApplicationStatusesByCreatedAt(jobApplication.statuses).map((status, idx, arr) => {
                     if (status.name === 'Applied') {
                       return '';
                     }
@@ -325,7 +325,7 @@ export const JobDetails = (props) => {
                                 <p className="text-sm text-gray-500">{status.name}</p>
                               </div>
                               <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                                <time dateTime={(status.updated_at).split('T')[0]}>{new Date(status.updated_at).toLocaleString('en-us', { month: 'short', day: 'numeric' })}</time>
+                                <time dateTime={(status.created_at).split('T')[0]}>{new Date(status.created_at).toLocaleString('en-us', { month: 'short', day: 'numeric' })}</time>
                               </div>
                             </div>
                           </div>
