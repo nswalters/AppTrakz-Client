@@ -7,6 +7,7 @@ import { CompanyDetails } from './company/CompanyDetails';
 import { CompanyListView } from './company/CompanyListView';
 import { CompanyProvider } from './company/CompanyProvider';
 import { CreateAndEditForm } from './forms/CreateAndEditForm';
+import { Dashboard } from './dashboard/Dashboard';
 import { JobContactList } from './job_contact/JobContactList';
 import { JobContactProvider } from './job_contact/JobContactProvider';
 import { JobDetails } from './job/JobDetails';
@@ -19,6 +20,16 @@ export const ApplicationViews = () => (
     <Route exact path="/user/profile">
       <Profile />
     </Route>
+
+    <CompanyProvider>
+      <JobProvider>
+        <ApplicationProvider>
+          <Route exact path={['/', '/dashboard']}>
+            <Dashboard />
+          </Route>
+        </ApplicationProvider>
+      </JobProvider>
+    </CompanyProvider>
 
     <CompanyProvider>
       <Route exact path="/companies">
