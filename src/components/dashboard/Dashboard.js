@@ -1,11 +1,15 @@
 /* eslint-disable max-len */
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { Link } from 'react-router-dom';
 import { ApplicationContext } from '../application/ApplicationProvider';
 import { CompanyContext } from '../company/CompanyProvider';
 import { JobContext } from '../job/JobProvider';
+import Sankey from '../sankey/Sankey';
 
 export const Dashboard = (props) => {
+  const svgRef = useRef();
   const { applicationList, getApplications } = useContext(ApplicationContext);
   const { companyList, getCompanies } = useContext(CompanyContext);
   const { getJobs, jobList } = useContext(JobContext);
@@ -14,12 +18,41 @@ export const Dashboard = (props) => {
   const [totalCompanies, setTotalCompanies] = useState('-');
   const [activeApplications, setActiveApplications] = useState('-');
   const [submissionsPast30Days, setSubmissionsPast30Days] = useState('-');
+  const [data, setData] = useState(null);
+  const [size, setSize] = useState({ width: 0, height: 0 });
+
+  const measureSVG = () => {
+    const { width, height } = svgRef.current.getBoundingClientRect();
+    setSize({ width, height });
+  };
+
+  useEffect(() => {
+    measureSVG();
+
+    window.addEventListener('resize', measureSVG);
+
+    return function cleanup() {
+      window.removeEventListener('resize', measureSVG);
+    };
+  }, []);
 
   useEffect(() => {
     getApplications();
     getCompanies();
     getJobs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/sankey', {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
+      },
+    })
+      .then((res) => res.json())
+      .then(setData)
+      .then(console.error(data));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -74,6 +107,7 @@ export const Dashboard = (props) => {
   }, [applicationList]);
 
   return (
+    <>
     <div className="container mx-auto mt-16">
       <h3 className="text-lg leading-6 font-medium text-gray-900">
         Overview
@@ -170,5 +204,16 @@ export const Dashboard = (props) => {
         </div>
       </dl>
     </div>
+    <div className="container max-w-lg mx-auto mt-8">
+      <h3 className="text-lg leading-6 font-medium text-gray-900 mb-8 text-center">
+        Sankey Diagram - Application Statuses
+      </h3>
+      <svg width="100%" height="300" ref={svgRef}>
+        {data && (
+          <Sankey data={data} width={size.width} height={size.height} />
+        )}
+      </svg>
+    </div>
+    </>
   );
 };
