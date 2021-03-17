@@ -24,15 +24,30 @@ export const Dashboard = (props) => {
 
   useEffect(() => {
     /* Updated everytime 'jobList' state value is updated */
+    const jobsAppliedFor = jobList.filter((job) => job.application);
 
-    setTotalJobs(jobList.length);
+    // setTotalJobs(jobList.length);
+    setTotalJobs(jobsAppliedFor.length);
   }, [jobList]);
 
   useEffect(() => {
     /* Updated everytime 'companylist' state value is updated */
 
-    setTotalCompanies(companyList.length);
-  }, [companyList]);
+    // Get array of all companies that have an application
+    const companiesAppliedTo = jobList.filter((job) => job.application).map((job) => job.company);
+
+    // Get unique companies that have an application
+    const companies = {};
+    const uniqueCompanies = companiesAppliedTo.filter((entry) => {
+      if (companies[entry.id]) {
+        return false;
+      }
+      companies[entry.id] = true;
+      return true;
+    });
+
+    setTotalCompanies(uniqueCompanies.length);
+  }, [companyList, jobList]);
 
   useEffect(() => {
     /* Updated everytime 'applicationList' state value is updated */
@@ -49,7 +64,7 @@ export const Dashboard = (props) => {
     const appliedTimes = [];
 
     applicationList.filter((app) => (
-      appliedTimes.push(new Date((app.statuses.find((status) => status.name === 'Applied')).updated_at).valueOf())
+      appliedTimes.push(new Date(app.submitted_at).valueOf())
     ));
 
     // Finally, we iterate over that array and find any timestamps which
@@ -104,7 +119,7 @@ export const Dashboard = (props) => {
             </p>
             <div className="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
               <div className="text-sm">
-                <Link to="/companies" className="font-medium text-indigo-600 hover:text-indigo-500"> View all<span className="sr-only">Total Companies Applied to</span></Link>
+                <Link to="/companies" className="font-medium text-indigo-600 hover:text-indigo-500"> View all<span className="sr-only">Total Companies Applied To</span></Link>
               </div>
             </div>
           </dd>
