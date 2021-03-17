@@ -33,8 +33,19 @@ export const Dashboard = (props) => {
   useEffect(() => {
     /* Updated everytime 'companylist' state value is updated */
 
-    setTotalCompanies(companyList.length);
-  }, [companyList]);
+    const companiesAppliedTo = jobList.filter((job) => job.application).map((job) => job.company);
+
+    const companies = {};
+    const uniqueCompanies = companiesAppliedTo.filter((entry) => {
+      if (companies[entry.id]) {
+        return false;
+      }
+      companies[entry.id] = true;
+      return true;
+    });
+
+    setTotalCompanies(uniqueCompanies.length);
+  }, [companyList, jobList]);
 
   useEffect(() => {
     /* Updated everytime 'applicationList' state value is updated */
@@ -84,7 +95,7 @@ export const Dashboard = (props) => {
             </p>
             <div className="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
               <div className="text-sm">
-                <Link to="/jobs" className="font-medium text-indigo-600 hover:text-indigo-500"> View all<span className="sr-only">Total Jobs Saved</span></Link>
+                <Link to="/jobs" className="font-medium text-indigo-600 hover:text-indigo-500"> View all<span className="sr-only">Total Jobs Applied For</span></Link>
               </div>
             </div>
           </dd>
@@ -98,7 +109,7 @@ export const Dashboard = (props) => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
             </div>
-            <p className="ml-16 text-sm font-medium text-gray-500 truncate">Total Companies Saved</p>
+            <p className="ml-16 text-sm font-medium text-gray-500 truncate">Total Companies Applied To</p>
           </dt>
           <dd className="ml-16 pb-6 flex items-baseline sm:pb-7">
             <p className="text-2xl font-semibold text-gray-900">
@@ -106,7 +117,7 @@ export const Dashboard = (props) => {
             </p>
             <div className="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
               <div className="text-sm">
-                <Link to="/companies" className="font-medium text-indigo-600 hover:text-indigo-500"> View all<span className="sr-only">Total Companies Savd</span></Link>
+                <Link to="/companies" className="font-medium text-indigo-600 hover:text-indigo-500"> View all<span className="sr-only">Total Companies Applied To</span></Link>
               </div>
             </div>
           </dd>
