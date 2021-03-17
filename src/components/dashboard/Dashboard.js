@@ -205,10 +205,11 @@ export const Dashboard = (props) => {
       </dl>
     </div>
     <div className="container max-w-lg mx-auto mt-8">
-      {data && data.nodes.length >= 2 && (
         <h3 className="text-lg leading-6 font-medium text-gray-900 mb-8 text-center">
           Sankey Diagram - Application Statuses
         </h3>
+      {data && data.nodes.length < 2 && (
+        <h2 className="text-lg leading-6 font-medium text-gray-600 text-center"><em>No Data to Chart Yet. Apply to a job to see the chart.</em></h2>
       )}
       <svg width="100%" height="300" ref={svgRef}>
         {data && (
