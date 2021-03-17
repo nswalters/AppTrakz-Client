@@ -48,8 +48,12 @@ export const Dashboard = (props) => {
     // and we push the unix-formatted times into an array.
     const appliedTimes = [];
 
+    /* THIS DOESNT WORK BECAUSE THE 'updated_at' COLUMN GETS UPDATED WHEN WE MODIFY THE STATUS */
+    // applicationList.filter((app) => (
+    //   appliedTimes.push(new Date((app.statuses.find((status) => status.name === 'Applied')).updated_at).valueOf())
+    // ));
     applicationList.filter((app) => (
-      appliedTimes.push(new Date((app.statuses.find((status) => status.name === 'Applied')).updated_at).valueOf())
+      appliedTimes.push(new Date(app.submitted_at).valueOf())
     ));
 
     // Finally, we iterate over that array and find any timestamps which
