@@ -33,8 +33,10 @@ export const Dashboard = (props) => {
   useEffect(() => {
     /* Updated everytime 'companylist' state value is updated */
 
+    // Get array of all companies that have an application
     const companiesAppliedTo = jobList.filter((job) => job.application).map((job) => job.company);
 
+    // Get unique companies that have an application
     const companies = {};
     const uniqueCompanies = companiesAppliedTo.filter((entry) => {
       if (companies[entry.id]) {
