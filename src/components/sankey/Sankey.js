@@ -4,7 +4,7 @@ import { sankey, sankeyLeft, sankeyLinkHorizontal } from 'd3-sankey';
 import chroma from 'chroma-js';
 
 const SankeyNode = ({
-  name, x0, x1, y0, y1, color, width, height,
+  name, x0, x1, y0, y1, color, width, height, value,
 }) => (
   <>
   <rect x={x0} y={y0} width={x1 - x0} height={y1 - y0} fill={color}>
@@ -22,6 +22,7 @@ const SankeyNode = ({
   }}
 >
   {name}
+  <tspan fill-opacity="0.7"> {value}</tspan>
 </text>
 </>
 );
