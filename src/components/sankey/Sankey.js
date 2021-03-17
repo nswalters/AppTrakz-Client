@@ -1,6 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3';
-import { sankey, sankeyLinkHorizontal } from 'd3-sankey';
+import { sankey, sankeyLeft, sankeyLinkHorizontal } from 'd3-sankey';
 import chroma from 'chroma-js';
 
 const SankeyNode = ({
@@ -40,6 +40,7 @@ const SankeyLink = ({ link, color }) => (
 
 const Sankey = ({ data, width, height }) => {
   const { nodes, links } = sankey()
+    .nodeAlign(sankeyLeft)
     .nodeWidth(15)
     .nodePadding(10)
     .extent([[1, 1], [width - 1, height - 5]])(data);
