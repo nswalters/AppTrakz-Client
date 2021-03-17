@@ -48,10 +48,6 @@ export const Dashboard = (props) => {
     // and we push the unix-formatted times into an array.
     const appliedTimes = [];
 
-    /* THIS DOESNT WORK BECAUSE THE 'updated_at' COLUMN GETS UPDATED WHEN WE MODIFY THE STATUS */
-    // applicationList.filter((app) => (
-    //   appliedTimes.push(new Date((app.statuses.find((status) => status.name === 'Applied')).updated_at).valueOf())
-    // ));
     applicationList.filter((app) => (
       appliedTimes.push(new Date(app.submitted_at).valueOf())
     ));
@@ -78,7 +74,7 @@ export const Dashboard = (props) => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
-            <p className="ml-16 text-sm font-medium text-gray-500 truncate">Total Jobs Applied For</p>
+            <p className="ml-16 text-sm font-medium text-gray-500 truncate">Total Jobs Saved</p>
           </dt>
           <dd className="ml-16 pb-6 flex items-baseline sm:pb-7">
             <p className="text-2xl font-semibold text-gray-900">
@@ -86,7 +82,7 @@ export const Dashboard = (props) => {
             </p>
             <div className="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
               <div className="text-sm">
-                <Link to="/jobs" className="font-medium text-indigo-600 hover:text-indigo-500"> View all<span className="sr-only">Total Jobs Applied For</span></Link>
+                <Link to="/jobs" className="font-medium text-indigo-600 hover:text-indigo-500"> View all<span className="sr-only">Total Jobs Saved</span></Link>
               </div>
             </div>
           </dd>
@@ -100,7 +96,7 @@ export const Dashboard = (props) => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
             </div>
-            <p className="ml-16 text-sm font-medium text-gray-500 truncate">Total Companies Applied To</p>
+            <p className="ml-16 text-sm font-medium text-gray-500 truncate">Total Companies Saved</p>
           </dt>
           <dd className="ml-16 pb-6 flex items-baseline sm:pb-7">
             <p className="text-2xl font-semibold text-gray-900">
@@ -108,7 +104,7 @@ export const Dashboard = (props) => {
             </p>
             <div className="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
               <div className="text-sm">
-                <Link to="/companies" className="font-medium text-indigo-600 hover:text-indigo-500"> View all<span className="sr-only">Total Companies Applied to</span></Link>
+                <Link to="/companies" className="font-medium text-indigo-600 hover:text-indigo-500"> View all<span className="sr-only">Total Companies Savd</span></Link>
               </div>
             </div>
           </dd>
