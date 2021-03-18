@@ -50,8 +50,7 @@ export const Dashboard = (props) => {
       },
     })
       .then((res) => res.json())
-      .then(setData)
-      .then(console.error(data));
+      .then(setData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -197,7 +196,8 @@ export const Dashboard = (props) => {
               </p>
               <div className="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
                 <div className="text-sm">
-                  <Link to="/applications" className="font-medium text-indigo-600 hover:text-indigo-500">View all<span className="sr-only"> Submissions past 30 days</span></Link>
+                  {/* <Link to="/applications" className="font-medium text-indigo-600 hover:text-indigo-500">View all<span className="sr-only"> Submissions past 30 days</span></Link> */}
+                  <p className="font-medium text-gray-50"></p>
                 </div>
               </div>
             </dd>
@@ -212,7 +212,7 @@ export const Dashboard = (props) => {
           <h2 className="text-lg leading-6 font-medium text-gray-600 text-center"><em>No Data to Chart Yet. Apply to a job to see the chart.</em></h2>
         )}
         <svg width="100%" height="300" ref={svgRef}>
-          {data && (
+          {data && data.nodes.length >= 2 && (
             <Sankey data={data} width={size.width} height={size.height} />
           )}
         </svg>

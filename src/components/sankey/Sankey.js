@@ -7,24 +7,24 @@ const SankeyNode = ({
   name, x0, x1, y0, y1, color, width, height, value,
 }) => (
   <>
-  <rect x={x0} y={y0} width={x1 - x0} height={y1 - y0} fill={color}>
-    <title>{name}</title>
-  </rect>
-  <text
-  x={x0 < width / 2 ? x1 + 6 : x0 - 6}
-  y={(y1 + y0) / 2}
-  style={{
-    alignmentBaseline: 'middle',
-    fontSize: 9,
-    textAnchor: x0 < width / 2 ? 'start' : 'end',
-    pointerEvents: 'none',
-    userSelect: 'none',
-  }}
->
-  {name}
-  <tspan fill-opacity="0.7"> {value}</tspan>
-</text>
-</>
+    <rect x={x0} y={y0} width={x1 - x0} height={y1 - y0} fill={color}>
+      <title>{name}</title>
+    </rect>
+    <text
+      x={x0 < width / 2 ? x1 + 6 : x0 - 6}
+      y={(y1 + y0) / 2}
+      style={{
+        alignmentBaseline: 'middle',
+        fontSize: 9,
+        textAnchor: x0 < width / 2 ? 'start' : 'end',
+        pointerEvents: 'none',
+        userSelect: 'none',
+      }}
+    >
+      {name}
+      <tspan fillOpacity="0.7"> {value}</tspan>
+    </text>
+  </>
 );
 
 const SankeyLink = ({ link, color }) => (
@@ -66,6 +66,7 @@ const Sankey = ({ data, width, height }) => {
         <SankeyLink
           link={link}
           color={color(colorScale(link.source.index)).hex()}
+          key={link.index}
         />
       ))}
     </g>
