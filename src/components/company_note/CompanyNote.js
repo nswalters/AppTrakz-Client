@@ -2,7 +2,12 @@
 import React from 'react';
 
 export const CompanyNote = (props) => {
-  const { note } = props;
+  const {
+    note,
+    setIsEditing,
+    setNoteContent,
+    setEditingNoteId,
+  } = props;
 
   return (
     <li>
@@ -18,6 +23,8 @@ export const CompanyNote = (props) => {
           </div>
           <div className="mt-2 text-sm space-x-2">
             <span className="text-gray-500 font-medium">{new Date(note.created_at).toLocaleString('en-US')}</span>
+            <span className="text-gray-500 font-medium">&middot;</span>
+            <button onClick={() => { setIsEditing(); setNoteContent({ content: note.content }); setEditingNoteId(note.id); }} type="button" className="text-gray-900 font-medium">Edit</button>
           </div>
         </div>
       </div>

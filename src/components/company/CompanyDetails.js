@@ -8,7 +8,12 @@ import { CompanyNoteContext } from '../company_note/CompanyNoteProvider';
 
 export const CompanyDetails = (props) => {
   const { companyList, getCompanies } = useContext(CompanyContext);
-  const { companyNoteList, createCompanyNote, getCompanyNotes } = useContext(CompanyNoteContext);
+  const {
+    companyNoteList,
+    createCompanyNote,
+    getCompanyNotes,
+    updateCompanyNote,
+  } = useContext(CompanyNoteContext);
 
   const [singleCompany, setSingleCompany] = useState({});
   const [showOptions, setShowOptions] = useState(false);
@@ -16,6 +21,9 @@ export const CompanyDetails = (props) => {
   const [noteContent, setNoteContent] = useState({
     content: '',
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingNoteId, setEditingNoteId] = useState(null);
+  const [noNoteContent, setNoNoteContent] = useState(false);
 
   useEffect(() => {
     getCompanies();
@@ -42,13 +50,26 @@ export const CompanyDetails = (props) => {
 
   const submitNote = (e) => {
     e.preventDefault();
-    const newNote = {
-      company: props.match.params.companyId,
-      content: noteContent.content,
-    };
-    createCompanyNote(newNote)
+    setNoNoteContent(false);
+    if (noteContent.content !== '') {
+      const newNote = {
+        company: props.match.params.companyId,
+        content: noteContent.content,
+      };
+      createCompanyNote(newNote)
+        .then(getCompanyNotes)
+        .then(setNoteContent({ content: '' }));
+    } else {
+      setNoNoteContent(true);
+    }
+  };
+
+  const updateNote = (e) => {
+    e.preventDefault();
+    setNoNoteContent(false);
+    updateCompanyNote(editingNoteId, noteContent)
       .then(getCompanyNotes)
-      .then(setNoteContent(''));
+      .then(setNoteContent({ content: '' }));
   };
 
   return (
@@ -174,7 +195,13 @@ export const CompanyDetails = (props) => {
                     <ul className="space-y-8">
                       {currentCompanyNotes && currentCompanyNotes.length > 0 ? (
                         currentCompanyNotes.map((note) => (
-                          <CompanyNote key={note.id} note={note} />
+                          <CompanyNote
+                            key={note.id}
+                            note={note}
+                            setIsEditing={() => { setIsEditing(true); setNoNoteContent(false); }}
+                            setNoteContent={setNoteContent}
+                            setEditingNoteId={setEditingNoteId}
+                          />
                         ))
                       ) : (
                         <div className="text-center text-gray-600">
@@ -195,12 +222,23 @@ export const CompanyDetails = (props) => {
                       <form action="#">
                         <div>
                           <label htmlFor="content" className="sr-only">Note Content</label>
-                          <textarea onChange={handleControlledInputChange} id="content" name="content" rows="3" className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Add a note" value={noteContent && noteContent.content}></textarea>
+                          <textarea onChange={handleControlledInputChange} id="content" name="content" rows="3" className={`shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${noNoteContent ? 'border-red-300 border-4' : 'border-gray-300'} rounded-md`} placeholder="Add a note" value={noteContent && noteContent.content}></textarea>
                         </div>
                         <div className="mt-3 flex items-center justify-end">
-                          <button onClick={(e) => submitNote(e)} type="button" className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Add Note
-                          </button>
+                          {isEditing ? (
+                            <>
+                              <button onClick={() => { setIsEditing(false); setNoteContent(''); setNoNoteContent(false); }} type="button" className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-8">
+                                Cancel
+                            </button>
+                              <button onClick={(e) => { setIsEditing(false); updateNote(e); }} type="button" className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Update Note
+                            </button>
+                            </>
+                          ) : (
+                            <button onClick={(e) => submitNote(e)} type="button" className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                              Add Note
+                            </button>
+                          )}
                         </div>
                       </form>
                     </div>
