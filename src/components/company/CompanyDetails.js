@@ -5,6 +5,7 @@ import { Transition } from '@headlessui/react';
 import { CompanyContext } from './CompanyProvider';
 import { CompanyNote } from '../company_note/CompanyNote';
 import { CompanyNoteContext } from '../company_note/CompanyNoteProvider';
+import { ConfirmActionModal } from '../alerts/ConfirmActionModal';
 
 export const CompanyDetails = (props) => {
   const { companyList, getCompanies } = useContext(CompanyContext);
@@ -13,6 +14,7 @@ export const CompanyDetails = (props) => {
     createCompanyNote,
     getCompanyNotes,
     updateCompanyNote,
+    deleteCompanyNote,
   } = useContext(CompanyNoteContext);
 
   const [singleCompany, setSingleCompany] = useState({});
@@ -24,6 +26,7 @@ export const CompanyDetails = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingNoteId, setEditingNoteId] = useState(null);
   const [noNoteContent, setNoNoteContent] = useState(false);
+  const [showConfirmActionModal, setShowConfirmActionModal] = useState(false);
 
   useEffect(() => {
     getCompanies();
@@ -122,7 +125,7 @@ export const CompanyDetails = (props) => {
                       <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <div className="py-1" role="none">
                           <Link to={`${singleCompany.url}/edit`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit</Link>
-                          <a href="/" className="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-100 hover:text-gray-900" role="menuitem">Delete</a>
+                          <button onClick={() => setShowConfirmActionModal(true)} type="button" className="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-100 hover:text-gray-900" role="menuitem">Delete</button>
                         </div>
                       </div>
                     </Transition>
@@ -201,6 +204,7 @@ export const CompanyDetails = (props) => {
                             setIsEditing={() => { setIsEditing(true); setNoNoteContent(false); }}
                             setNoteContent={setNoteContent}
                             setEditingNoteId={setEditingNoteId}
+                            setShowConfirmActionModal={setShowConfirmActionModal}
                           />
                         ))
                       ) : (
@@ -320,6 +324,15 @@ export const CompanyDetails = (props) => {
           </section> */}
         </div>
       </main>
-    </div>
+      <ConfirmActionModal
+        show={showConfirmActionModal}
+        toggleShow={setShowConfirmActionModal}
+        actionFunction={() => {
+          deleteCompanyNote(editingNoteId)
+            .then(() => getCompanyNotes());
+        }}
+        actionName="delete"
+      />
+    </div >
   );
 };

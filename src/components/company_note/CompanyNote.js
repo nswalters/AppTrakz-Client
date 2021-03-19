@@ -7,6 +7,7 @@ export const CompanyNote = (props) => {
     setIsEditing,
     setNoteContent,
     setEditingNoteId,
+    setShowConfirmActionModal,
   } = props;
 
   return (
@@ -25,9 +26,11 @@ export const CompanyNote = (props) => {
             <span className="text-gray-500 font-medium">{new Date(note.created_at).toLocaleString('en-US')}</span>
             <span className="text-gray-500 font-medium">&middot;</span>
             <button onClick={() => { setIsEditing(); setNoteContent({ content: note.content }); setEditingNoteId(note.id); }} type="button" className="text-gray-900 font-medium">Edit</button>
+            <span className="text-gray-500 font-medium">&middot;</span>
+            <button onClick={() => { setEditingNoteId(note.id); setShowConfirmActionModal(true); }} type="button" className="text-red-600 font-medium">Delete</button>
           </div>
         </div>
       </div>
-    </li>
+    </li >
   );
 };
