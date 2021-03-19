@@ -8,29 +8,48 @@ import { CompanyNoteContext } from '../company_note/CompanyNoteProvider';
 
 export const CompanyDetails = (props) => {
   const { companyList, getCompanies } = useContext(CompanyContext);
-  const { companyNoteList, getCompanyNotes } = useContext(CompanyNoteContext);
+  const { companyNoteList, createCompanyNote, getCompanyNotes } = useContext(CompanyNoteContext);
 
   const [singleCompany, setSingleCompany] = useState({});
   const [showOptions, setShowOptions] = useState(false);
   const [currentCompanyNotes, setCurrentCompanyNotes] = useState(null);
+  const [noteContent, setNoteContent] = useState({
+    content: '',
+  });
 
   useEffect(() => {
     getCompanies();
-    getCompanyNotes()
-      .then(() => {
-        if (companyNoteList.length > 0) {
-          setCurrentCompanyNotes(companyNoteList.filter((note) => note.company.id === parseInt(props.match.params.companyId, 10)));
-        }
-      });
+    getCompanyNotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //  && companyNoteList.filter((note) => note.company.id === parseInt(props.match.params.companyId, 10)).map((note) => (
+  useEffect(() => {
+    if (companyNoteList.length > 0) {
+      setCurrentCompanyNotes(companyNoteList.filter((note) => note.company.id === parseInt(props.match.params.companyId, 10)));
+    }
+  }, [companyNoteList, props.match.params.companyId]);
 
   useEffect(() => {
     const company = companyList.find((c) => c.id === parseInt(props.match.params.companyId, 10)) || {};
     setSingleCompany(company);
   }, [companyList, props.match.params.companyId]);
+
+  const handleControlledInputChange = (event) => {
+    const newNoteContent = { ...noteContent };
+    newNoteContent[event.target.name] = event.target.value;
+    setNoteContent(newNoteContent);
+  };
+
+  const submitNote = (e) => {
+    e.preventDefault();
+    const newNote = {
+      company: props.match.params.companyId,
+      content: noteContent.content,
+    };
+    createCompanyNote(newNote)
+      .then(getCompanyNotes)
+      .then(setNoteContent(''));
+  };
 
   return (
     <div className="min-h-(screen-16) bg-gray-100">
@@ -175,11 +194,11 @@ export const CompanyDetails = (props) => {
                     <div className="min-w-0 flex-1">
                       <form action="#">
                         <div>
-                          <label htmlFor="comment" className="sr-only">About</label>
-                          <textarea id="comment" name="comment" rows="3" className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Add a note"></textarea>
+                          <label htmlFor="content" className="sr-only">Note Content</label>
+                          <textarea onChange={handleControlledInputChange} id="content" name="content" rows="3" className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Add a note" value={noteContent && noteContent.content}></textarea>
                         </div>
                         <div className="mt-3 flex items-center justify-end">
-                          <button type="submit" className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                          <button onClick={(e) => submitNote(e)} type="button" className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                             Add Note
                           </button>
                         </div>
