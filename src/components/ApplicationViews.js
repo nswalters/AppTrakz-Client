@@ -13,6 +13,7 @@ import { JobContactList } from './job_contact/JobContactList';
 import { JobContactProvider } from './job_contact/JobContactProvider';
 import { JobDetails } from './job/JobDetails';
 import { JobListView } from './job/JobListView';
+import { JobNoteProvider } from './job_note/JobNoteProvider';
 import { JobProvider } from './job/JobProvider';
 import { StatusProvider } from './status/StatusProvider';
 
@@ -48,9 +49,11 @@ export const ApplicationViews = () => (
         <Route exact path="/jobs">
           <JobListView />
         </Route>
-        <Route exact path="/jobs/:jobId(\d+)" render={
-          (props) => <JobDetails {...props} />
-        } />
+        <JobNoteProvider>
+          <Route exact path="/jobs/:jobId(\d+)" render={
+            (props) => <JobDetails {...props} />
+          } />
+        </JobNoteProvider>
       </ApplicationProvider>
     </JobProvider>
 
