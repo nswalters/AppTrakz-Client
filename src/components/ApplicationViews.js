@@ -5,6 +5,7 @@ import { ApplicationListView } from './application/ApplicationListView';
 import { ApplicationProvider } from './application/ApplicationProvider';
 import { CompanyDetails } from './company/CompanyDetails';
 import { CompanyListView } from './company/CompanyListView';
+import { CompanyNoteProvider } from './company_note/CompanyNoteProvider';
 import { CompanyProvider } from './company/CompanyProvider';
 import { CreateAndEditForm } from './forms/CreateAndEditForm';
 import { Dashboard } from './dashboard/Dashboard';
@@ -35,9 +36,11 @@ export const ApplicationViews = () => (
       <Route exact path="/companies">
         <CompanyListView />
       </Route>
-      <Route exact path="/companies/:companyId(\d+)" render={
-        (props) => <CompanyDetails {...props} />
-      } />
+      <CompanyNoteProvider>
+        <Route exact path="/companies/:companyId(\d+)" render={
+          (props) => <CompanyDetails {...props} />
+        } />
+      </CompanyNoteProvider>
     </CompanyProvider>
 
     <JobProvider>
