@@ -5,7 +5,7 @@ export const CompanyNoteContext = React.createContext();
 export const CompanyNoteProvider = (props) => {
   const [companyNoteList, setCompanyNoteList] = useState([]);
 
-  // Get Company Notes
+  // Get all Company Notes
   const getCompanyNotes = () => (
     fetch('http://localhost:8000/company_notes', {
       headers: {
