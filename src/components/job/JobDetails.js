@@ -4,20 +4,45 @@ import { Link } from 'react-router-dom';
 import { Transition } from '@headlessui/react';
 import { ApplicationContext } from '../application/ApplicationProvider';
 import { JobContext } from './JobProvider';
+import { JobNote } from '../job_note/JobNote';
+import { JobNoteContext } from '../job_note/JobNoteProvider';
+import { ConfirmActionModal } from '../alerts/ConfirmActionModal';
 
 export const JobDetails = (props) => {
   const { jobList, getJobs } = useContext(JobContext);
   const { applicationList, createApplication, getApplications } = useContext(ApplicationContext);
+  const {
+    jobNoteList,
+    createJobNote,
+    getJobNotes,
+    updateJobNote,
+    deleteJobNote,
+  } = useContext(JobNoteContext);
 
   const [singleJob, setSingleJob] = useState({});
   const [jobApplication, setJobApplication] = useState({});
   const [showOptions, setShowOptions] = useState(false);
+  const [currentJobNotes, setCurrentJobNotes] = useState(null);
+  const [noteContent, setNoteContent] = useState({
+    content: '',
+  });
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingNoteId, setEditingNoteId] = useState(null);
+  const [noNoteContent, setNoNoteContent] = useState(false);
+  const [showConfirmActionModal, setShowConfirmActionModal] = useState(false);
 
   useEffect(() => {
     getJobs();
     getApplications();
+    getJobNotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (jobNoteList.length > 0) {
+      setCurrentJobNotes(jobNoteList.filter((note) => note.job.id === parseInt(props.match.params.jobId, 10)));
+    }
+  }, [jobNoteList, props.match.params.jobId]);
 
   useEffect(() => {
     const job = jobList.find((j) => j.id === parseInt(props.match.params.jobId, 10)) || {};
@@ -32,6 +57,36 @@ export const JobDetails = (props) => {
   const sortApplicationStatusesByCreatedAt = (statuses) => (
     statuses.sort((a, b) => (a.created_at > b.created_at ? 1 : -1))
   );
+
+  const handleControlledInputChange = (event) => {
+    const newNoteContent = { ...noteContent };
+    newNoteContent[event.target.name] = event.target.value;
+    setNoteContent(newNoteContent);
+  };
+
+  const submitNote = (e) => {
+    e.preventDefault();
+    setNoNoteContent(false);
+    if (noteContent.content !== '') {
+      const newNote = {
+        job: props.match.params.jobId,
+        content: noteContent.content,
+      };
+      createJobNote(newNote)
+        .then(getJobNotes)
+        .then(setNoteContent({ content: '' }));
+    } else {
+      setNoNoteContent(true);
+    }
+  };
+
+  const updateNote = (e) => {
+    e.preventDefault();
+    setNoNoteContent(false);
+    updateJobNote(editingNoteId, noteContent)
+      .then(getJobNotes)
+      .then(setNoteContent({ content: '' }));
+  };
 
   return (
     <div className="min-h-(screen-16) bg-gray-100">
@@ -89,7 +144,7 @@ export const JobDetails = (props) => {
                       <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <div className="py-1" role="none">
                           {singleJob && <Link to={`${singleJob.url}/edit`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit</Link>}
-                          <a href="/" className="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-100 hover:text-gray-900" role="menuitem">Delete</a>
+                          <button onClick={() => setShowConfirmActionModal(true)} type="button" className="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-100 hover:text-gray-900" role="menuitem">Delete</button>
                         </div>
                       </div>
                     </Transition>
@@ -99,10 +154,10 @@ export const JobDetails = (props) => {
                   <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                     <div className="sm:col-span-1">
                       <dt className="text-sm font-medium text-gray-500">
-                        Company
+                        Job
                       </dt>
                       <dd className="mt-1 text-sm text-gray-900 underline">
-                        {singleJob.company && <Link to={singleJob.company.url}>{singleJob.company && singleJob.company.name}</Link>}
+                        {singleJob.job && <Link to={singleJob.job.url}>{singleJob.job && singleJob.job.name}</Link>}
                       </dd>
                     </div>
                     <div className="sm:col-span-1">
@@ -159,7 +214,7 @@ export const JobDetails = (props) => {
             </section>
 
             {/* <!-- Notes --> */}
-            {/* <section aria-labelledby="notes-title">
+            <section aria-labelledby="notes-title">
               <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden">
                 <div className="divide-y divide-gray-200">
                   <div className="px-4 py-5 sm:px-6">
@@ -167,102 +222,62 @@ export const JobDetails = (props) => {
                   </div>
                   <div className="px-4 py-6 sm:px-6">
                     <ul className="space-y-8">
-                      <li>
-                        <div className="flex space-x-3">
-                          <div className="flex-shrink-0">
-                            <img className="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=WAfJ9TzjUY&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                          </div>
-                          <div>
-                            <div className="text-sm">
-                              <a href="/" className="font-medium text-gray-900">Leslie Alexander</a>
-                            </div>
-                            <div className="mt-1 text-sm text-gray-700">
-                              <p>Ducimus quas delectus ad maxime totam doloribus reiciendis ex. Tempore dolorem maiores. Similique voluptatibus tempore non ut.</p>
-                            </div>
-                            <div className="mt-2 text-sm space-x-2">
-                              <span className="text-gray-500 font-medium">4d ago</span>
-                              <span className="text-gray-500 font-medium">&middot;</span>
-                              <button type="button" className="text-gray-900 font-medium">Reply</button>
-                            </div>
-                          </div>
+                      {currentJobNotes && currentJobNotes.length > 0 ? (
+                        currentJobNotes.map((note) => (
+                          <JobNote
+                            key={note.id}
+                            note={note}
+                            setIsEditing={() => { setIsEditing(true); setNoNoteContent(false); }}
+                            setNoteContent={setNoteContent}
+                            setEditingNoteId={setEditingNoteId}
+                            setShowConfirmActionModal={setShowConfirmActionModal}
+                          />
+                        ))
+                      ) : (
+                        <div className="text-center text-gray-600">
+                          <p><em>No notes yet</em></p>
                         </div>
-                      </li>
-
-                      <li>
-                        <div className="flex space-x-3">
-                          <div className="flex-shrink-0">
-                            <img className="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixqx=WAfJ9TzjUY&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                          </div>
-                          <div>
-                            <div className="text-sm">
-                              <a href="/" className="font-medium text-gray-900">Michael Foster</a>
-                            </div>
-                            <div className="mt-1 text-sm text-gray-700">
-                              <p>Et ut autem. Voluptatem eum dolores sint necessitatibus quos. Quis eum qui dolorem accusantium voluptas voluptatem ipsum. Quo facere iusto quia accusamus veniam id explicabo et aut.</p>
-                            </div>
-                            <div className="mt-2 text-sm space-x-2">
-                              <span className="text-gray-500 font-medium">4d ago</span>
-                              <span className="text-gray-500 font-medium">&middot;</span>
-                              <button type="button" className="text-gray-900 font-medium">Reply</button>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-
-                      <li>
-                        <div className="flex space-x-3">
-                          <div className="flex-shrink-0">
-                            <img className="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixqx=WAfJ9TzjUY&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                          </div>
-                          <div>
-                            <div className="text-sm">
-                              <a href="/" className="font-medium text-gray-900">Dries Vincent</a>
-                            </div>
-                            <div className="mt-1 text-sm text-gray-700">
-                              <p>Expedita consequatur sit ea voluptas quo ipsam recusandae. Ab sint et voluptatem repudiandae voluptatem et eveniet. Nihil quas consequatur autem. Perferendis rerum et.</p>
-                            </div>
-                            <div className="mt-2 text-sm space-x-2">
-                              <span className="text-gray-500 font-medium">4d ago</span>
-                              <span className="text-gray-500 font-medium">&middot;</span>
-                              <button type="button" className="text-gray-900 font-medium">Reply</button>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
+                      )}
                     </ul>
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-6 sm:px-6">
                   <div className="flex space-x-3">
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80" alt="" />
+                      <svg className="h-8 w-8 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                      </svg>
                     </div>
                     <div className="min-w-0 flex-1">
                       <form action="#">
                         <div>
-                          <label for="comment" className="sr-only">About</label>
-                          <textarea id="comment" name="comment" rows="3" className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md" placeholder="Add a note"></textarea>
+                          <label htmlFor="content" className="sr-only">Note Content</label>
+                          <textarea onChange={handleControlledInputChange} id="content" name="content" rows="3" className={`shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm ${noNoteContent ? 'border-red-300 border-4' : 'border-gray-300'} rounded-md`} placeholder="Add a note" value={noteContent && noteContent.content}></textarea>
                         </div>
-                        <div className="mt-3 flex items-center justify-between">
-                          <a href="/" className="group inline-flex items-start text-sm space-x-2 text-gray-500 hover:text-gray-900">
-                            <!-- Heroicon name: solid/question-mark-circle -->
-                            <svg className="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-                            </svg>
-                            <span>
-                              Some HTML is okay.
-                            </span>
-                          </a>
-                          <button type="submit" className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Comment
-                          </button>
+                        <div className="mt-3 flex items-center justify-end">
+                          <div className="mt-3 flex items-center justify-end">
+                            {isEditing ? (
+                              <>
+                                <button onClick={() => { setIsEditing(false); setNoteContent(''); setNoNoteContent(false); }} type="button" className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-8">
+                                  Cancel
+                            </button>
+                                <button onClick={(e) => { setIsEditing(false); updateNote(e); }} type="button" className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                  Update Note
+                            </button>
+                              </>
+                            ) : (
+                              <button onClick={(e) => submitNote(e)} type="button" className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Add Note
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
               </div>
-            </section> */}
+            </section>
           </div>
 
           <section aria-labelledby="timeline-title" className="lg:col-start-3 lg:col-span-1">
@@ -339,6 +354,15 @@ export const JobDetails = (props) => {
           </section>
         </div>
       </main>
+      <ConfirmActionModal
+        show={showConfirmActionModal}
+        toggleShow={setShowConfirmActionModal}
+        actionFunction={() => {
+          deleteJobNote(editingNoteId)
+            .then(() => getJobNotes());
+        }}
+        actionName="delete"
+      />
     </div>
   );
 };
