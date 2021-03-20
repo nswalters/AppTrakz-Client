@@ -4,6 +4,7 @@ import { Transition } from '@headlessui/react';
 import { JobContactContext } from './JobContactProvider';
 import { JobContactDetailForm } from '../forms/JobContactDetailForm';
 import { ConfirmActionModal } from '../alerts/ConfirmActionModal';
+import { ContactNoteList } from '../contact_note/ContactNoteList';
 
 export const JobContactDetail = (props) => {
   const { selectedContact, showContactPanel, setShowContactPanel } = props;
@@ -12,6 +13,7 @@ export const JobContactDetail = (props) => {
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [showNotes, setShowNotes] = useState(false);
   const [showConfirmActionModal, setShowConfirmActionModal] = useState(false);
   const [target, setTarget] = useState(null);
 
@@ -37,7 +39,7 @@ export const JobContactDetail = (props) => {
                         Job Contact
                     </h2>
                       <div className="ml-3 h-7 flex items-center">
-                        <button onClick={() => setShowContactPanel(false)} className="bg-gray-100 rounded-md text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500">
+                        <button onClick={() => { setShowContactPanel(false); setShowNotes(false); setIsEditing(false); }} className="bg-gray-100 rounded-md text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500">
                           <span className="sr-only">Close panel</span>
                           {/* <!-- Heroicon name: outline/x --> */}
                           <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -61,10 +63,10 @@ export const JobContactDetail = (props) => {
                             <div className="mt-5 flex flex-wrap space-y-3 sm:space-y-0 sm:space-x-3">
                               <a href={`mailto:${selectedContact.contact && selectedContact.contact.email}`} className="flex-shrink-0 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:flex-1">
                                 Email
-                            </a>
+                              </a>
                               <a href={`tel:${selectedContact.contact && selectedContact.contact.phone}`} className="flex-1 w-full inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Call
-                            </a>
+                              </a>
                               <span className="ml-3 inline-flex sm:ml-0">
                                 <div className="relative inline-block text-left">
                                   <button onClick={() => setShowDropdown((prev) => (!prev))} id="options-menu" type="button" className="inline-flex items-center p-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-400 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -86,13 +88,20 @@ export const JobContactDetail = (props) => {
                                     <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                                       <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                         <p onClick={() => { setIsEditing(true); setShowDropdown((prev) => !prev); }} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" role="menuitem">Edit Contact</p>
-                                        <button onClick={() => { setTarget(selectedContact.id); setShowConfirmActionModal(true); }} className="w-full px-4 py-2 text-sm text-left text-red-700 hover:bg-red-100 hover:text-red-900" role="menuitem">Delete Contact</button>
+                                        <p onClick={() => { setTarget(selectedContact.id); setShowConfirmActionModal(true); }} className="w-full px-4 py-2 text-sm text-left text-red-700 hover:bg-red-100 hover:text-red-900 cursor-pointer" role="menuitem">Delete Contact</p>
                                       </div>
                                     </div>
                                   </Transition>
                                 </div>
                               </span>
                             </div>
+                            <p onClick={() => setShowNotes((prev) => !prev)} className="flex-shrink-0 w-full inline-flex items-center justify-center mt-4 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:flex-1">
+                              {showNotes ? (
+                                'Hide Notes'
+                              ) : (
+                                'View Notes'
+                              )}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -129,6 +138,9 @@ export const JobContactDetail = (props) => {
                   {isEditing ? (
                     <JobContactDetailForm setIsEditing={setIsEditing} selectedContact={selectedContact} setShowContactPanel={setShowContactPanel} />
                   ) : ''}
+                  {showNotes ? (
+                    <ContactNoteList contactId={selectedContact.contact.id} />
+                  ) : ('')}
                 </div>
               </div>
             </section>

@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
+import { ContactNoteContext } from '../contact_note/ContactNoteProvider';
 import { JobContactContext } from './JobContactProvider';
 import { JobContactListCard } from './JobContactListCard';
 import { JobContactDetail } from './JobContactDetail';
@@ -7,6 +8,10 @@ import { JobContactNew } from './JobContactNew';
 
 export const JobContactList = (props) => {
   const { getJobContacts, jobContactList } = useContext(JobContactContext);
+  const {
+    getContactNotes,
+    contactNoteList,
+  } = useContext(ContactNoteContext);
 
   const [showContactPanel, setShowContactPanel] = useState(false);
   const [showNewContactPanel, setShowNewContactPanel] = useState(false);
@@ -14,6 +19,7 @@ export const JobContactList = (props) => {
 
   useEffect(() => {
     getJobContacts();
+    getContactNotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,6 +47,7 @@ export const JobContactList = (props) => {
             jobContact={jobContact}
             setShowContactPanel={setShowContactPanel}
             setSelectedContact={setSelectedContact}
+            notes={contactNoteList.filter((note) => note.contact.id === jobContact.id)}
           />
         ))}
       </ul>
