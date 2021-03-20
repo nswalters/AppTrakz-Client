@@ -172,7 +172,7 @@ export const NavBar = (props) => {
               <p onClick={() => {
                 localStorage.removeItem('apptrakz_token');
                 props.history.push({ pathname: '/' });
-              }} href="/" className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">Sign out</p>
+              }} className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">Sign out</p>
             </div>
           </div>
         </div>
