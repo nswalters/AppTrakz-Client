@@ -7,7 +7,7 @@ export const CompanyNoteProvider = (props) => {
 
   // Get all Company Notes
   const getCompanyNotes = () => (
-    fetch('http://localhost:8000/company_notes', {
+    fetch('https://apptrakz-api.herokuapp.com/company_notes', {
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
       },
@@ -18,7 +18,7 @@ export const CompanyNoteProvider = (props) => {
 
   // Create new Company Note
   const createCompanyNote = (companyNoteDetails) => (
-    fetch('http://localhost:8000/company_notes', {
+    fetch('https://apptrakz-api.herokuapp.com/company_notes', {
       method: 'POST',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
@@ -30,7 +30,7 @@ export const CompanyNoteProvider = (props) => {
 
   // Update Company Note
   const updateCompanyNote = (companyNoteId, companyNoteDetails) => (
-    fetch(`http://localhost:8000/company_notes/${companyNoteId}`, {
+    fetch(`https://apptrakz-api.herokuapp.com/company_notes/${companyNoteId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
@@ -42,7 +42,7 @@ export const CompanyNoteProvider = (props) => {
 
   // Delete a Company Note (actually a soft-delete)
   const deleteCompanyNote = (companyNoteId) => (
-    fetch(`http://localhost:8000/company_notes/${companyNoteId}`, {
+    fetch(`https://apptrakz-api.herokuapp.com/company_notes/${companyNoteId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,

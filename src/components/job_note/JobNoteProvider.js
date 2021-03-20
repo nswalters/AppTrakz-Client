@@ -7,7 +7,7 @@ export const JobNoteProvider = (props) => {
 
   // Get all Job Notes
   const getJobNotes = () => (
-    fetch('http://localhost:8000/job_notes', {
+    fetch('https://apptrakz-api.herokuapp.com/job_notes', {
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
       },
@@ -18,7 +18,7 @@ export const JobNoteProvider = (props) => {
 
   // Create new Job Note
   const createJobNote = (jobNoteDetails) => (
-    fetch('http://localhost:8000/job_notes', {
+    fetch('https://apptrakz-api.herokuapp.com/job_notes', {
       method: 'POST',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
@@ -30,7 +30,7 @@ export const JobNoteProvider = (props) => {
 
   // Update Job Note
   const updateJobNote = (jobNoteId, jobNoteDetails) => (
-    fetch(`http://localhost:8000/job_notes/${jobNoteId}`, {
+    fetch(`https://apptrakz-api.herokuapp.com/job_notes/${jobNoteId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
@@ -42,7 +42,7 @@ export const JobNoteProvider = (props) => {
 
   // Delete a Job Note (actually a soft-delete)
   const deleteJobNote = (jobNoteId) => (
-    fetch(`http://localhost:8000/job_notes/${jobNoteId}`, {
+    fetch(`https://apptrakz-api.herokuapp.com/job_notes/${jobNoteId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,

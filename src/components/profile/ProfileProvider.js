@@ -6,7 +6,7 @@ export const ProfileProvider = (props) => {
   const [userProfile, setUserProfile] = useState({});
 
   const getProfile = () => (
-    fetch('http://localhost:8000/user/profile', {
+    fetch('https://apptrakz-api.herokuapp.com/user/profile', {
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
       },
@@ -16,7 +16,7 @@ export const ProfileProvider = (props) => {
   );
 
   const updateProfile = (newProfileData) => (
-    fetch('http://localhost:8000/user/profile', {
+    fetch('https://apptrakz-api.herokuapp.com/user/profile', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export const ProfileProvider = (props) => {
 
   return (
     <ProfileContext.Provider value={{ userProfile, getProfile, updateProfile }} >
-      { props.children }
+      { props.children}
     </ProfileContext.Provider>
   );
 };

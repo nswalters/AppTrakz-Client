@@ -7,7 +7,7 @@ export const StatusProvider = (props) => {
 
   // Get Statuses
   const getStatuses = () => (
-    fetch('http://localhost:8000/statuses', {
+    fetch('https://apptrakz-api.herokuapp.com/statuses', {
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
       },

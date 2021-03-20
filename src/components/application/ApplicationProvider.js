@@ -7,7 +7,7 @@ export const ApplicationProvider = (props) => {
 
   // Get applications
   const getApplications = () => (
-    fetch('http://localhost:8000/applications', {
+    fetch('https://apptrakz-api.herokuapp.com/applications', {
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
       },
@@ -18,7 +18,7 @@ export const ApplicationProvider = (props) => {
 
   // Create application
   const createApplication = (applicationDetails) => (
-    fetch('http://localhost:8000/applications', {
+    fetch('https://apptrakz-api.herokuapp.com/applications', {
       method: 'POST',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
@@ -31,7 +31,7 @@ export const ApplicationProvider = (props) => {
 
   // Update an application
   const updateApplication = (appId, applicationDetails) => (
-    fetch(`http://localhost:8000/applications/${appId}`, {
+    fetch(`https://apptrakz-api.herokuapp.com/applications/${appId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
