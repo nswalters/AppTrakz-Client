@@ -15,14 +15,20 @@ const SankeyNode = ({
       y={(y1 + y0) / 2}
       style={{
         alignmentBaseline: 'middle',
-        fontSize: 9,
+        fontSize: 14,
         textAnchor: x0 < width / 2 ? 'start' : 'end',
         pointerEvents: 'none',
         userSelect: 'none',
       }}
     >
       {name}
-      <tspan fillOpacity="0.7"> {value}</tspan>
+      <tspan fillOpacity="0.7" style={{
+        alignmentBaseline: 'middle',
+        fontSize: 14,
+        textAnchor: x0 < width / 2 ? 'start' : 'end',
+        pointerEvents: 'none',
+        userSelect: 'none',
+      }}> {value}</tspan>
     </text>
   </>
 );
