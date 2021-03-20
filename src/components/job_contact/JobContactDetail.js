@@ -39,7 +39,7 @@ export const JobContactDetail = (props) => {
                         Job Contact
                     </h2>
                       <div className="ml-3 h-7 flex items-center">
-                        <button onClick={() => { setShowContactPanel(false); setShowNotes(false); }} className="bg-gray-100 rounded-md text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500">
+                        <button onClick={() => { setShowContactPanel(false); setShowNotes(false); setIsEditing(false); }} className="bg-gray-100 rounded-md text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500">
                           <span className="sr-only">Close panel</span>
                           {/* <!-- Heroicon name: outline/x --> */}
                           <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
