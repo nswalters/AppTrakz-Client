@@ -2,7 +2,12 @@
 import React from 'react';
 
 export const JobContactListCard = (props) => {
-  const { jobContact, setSelectedContact, setShowContactPanel } = props;
+  const {
+    jobContact,
+    setSelectedContact,
+    setShowContactPanel,
+    notes,
+  } = props;
 
   return (
     <li className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
@@ -12,6 +17,9 @@ export const JobContactListCard = (props) => {
             <h3 className="text-gray-900 text-sm font-medium truncate">{jobContact.contact && jobContact.contact.first_name} {jobContact.contact.last_name}</h3>
           </div>
           <span className="flex-shrink-0 inline-block my-2 px-6 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full text-center">{jobContact.job.company.name}<br />{jobContact.job.role_title}</span>
+          <div className="w-full text-center text-xs text-gray-400">
+            Notes: {notes.length}
+          </div>
         </div>
       </div>
       <div>

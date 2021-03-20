@@ -7,6 +7,7 @@ import { CompanyDetails } from './company/CompanyDetails';
 import { CompanyListView } from './company/CompanyListView';
 import { CompanyNoteProvider } from './company_note/CompanyNoteProvider';
 import { CompanyProvider } from './company/CompanyProvider';
+import { ContactNoteProvider } from './contact_note/ContactNoteProvider';
 import { CreateAndEditForm } from './forms/CreateAndEditForm';
 import { Dashboard } from './dashboard/Dashboard';
 import { JobContactList } from './job_contact/JobContactList';
@@ -73,9 +74,11 @@ export const ApplicationViews = () => (
 
     <JobProvider>
       <JobContactProvider>
-        <Route exact path="/job_contacts">
-          <JobContactList />
-        </Route>
+        <ContactNoteProvider>
+          <Route exact path="/job_contacts">
+            <JobContactList />
+          </Route>
+        </ContactNoteProvider>
       </JobContactProvider>
     </JobProvider>
   </>
