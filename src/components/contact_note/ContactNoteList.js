@@ -13,7 +13,6 @@ export const ContactNoteList = (props) => {
     updateContactNote,
     deleteContactNote,
     contactNoteList,
-    setContactNoteList,
   } = useContext(ContactNoteContext);
 
   const [isEditing, setIsEditing] = useState(false);
