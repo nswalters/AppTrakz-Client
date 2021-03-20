@@ -15,6 +15,10 @@ export const JobListView = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    getApplications();
+  }, [getApplications, jobList]);
+
   if (jobList.length > 0) {
     return (
       <div className="min-h-(screen-16) bg-gray-100">
