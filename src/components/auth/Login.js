@@ -39,7 +39,7 @@ export const Login = (props) => {
       <InvalidLoginModal showInvalidLoginModal={showInvalidLoginModal} setShowInvalidLoginModal={setShowInvalidLoginModal} {...props} />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
+        <svg className="mx-auto h-20 w-20" viewBox="0 0 39.688 39.688" xmlns="http://www.w3.org/2000/svg"><g style={{ mixBlendMode: 'multiply' }}><path d="M33.422 27.103l-13.95 6.888-13.976-6.847-.028-13.737 13.95-6.889 13.977 6.848z" fill="#818cf8" style={{ mixBlendMode: 'overlay' }} /><path d="M27.954 32.8l-13.95 6.889L.029 32.84 0 19.104l13.95-6.889 13.977 6.848z" fill="#6366f1" style={{ mixBlendMode: 'overlay' }} /><path d="M39.687 20.586l-13.95 6.889-13.977-6.848-.027-13.737L25.683 0 39.658 6.85z" fill="#a5b4fc" style={{ mixBlendMode: 'overlay' }} /></g></svg>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Sign in to your account
     </h2>
@@ -82,6 +82,6 @@ export const Login = (props) => {
           </form>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
