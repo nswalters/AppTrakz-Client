@@ -152,10 +152,10 @@ export const JobDetails = (props) => {
                   <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                     <div className="sm:col-span-1">
                       <dt className="text-sm font-medium text-gray-500">
-                        Job
+                        Company
                       </dt>
                       <dd className="mt-1 text-sm text-gray-900 underline">
-                        {singleJob.job && <Link to={singleJob.job.url}>{singleJob.job && singleJob.job.name}</Link>}
+                        {singleJob.job && <Link to={singleJob.company.url}>{singleJob.company && singleJob.company.name}</Link>}
                       </dd>
                     </div>
                     <div className="sm:col-span-1">
