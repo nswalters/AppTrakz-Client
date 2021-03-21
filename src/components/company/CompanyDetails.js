@@ -35,9 +35,7 @@ export const CompanyDetails = (props) => {
   }, []);
 
   useEffect(() => {
-    // if (companyNoteList.length > 0) {
     companyNoteList && setCurrentCompanyNotes(companyNoteList.filter((note) => note.company.id === parseInt(props.match.params.companyId, 10)));
-    // }
   }, [companyList, companyNoteList, props.match.params.companyId]);
 
   useEffect(() => {
