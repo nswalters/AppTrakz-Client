@@ -38,12 +38,12 @@ export const CompanyDetails = (props) => {
     if (companyNoteList.length > 0) {
       setCurrentCompanyNotes(companyNoteList.filter((note) => note.company.id === parseInt(props.match.params.companyId, 10)));
     }
-  }, [companyNoteList, props.match.params.companyId]);
+  }, [companyList, companyNoteList, props.match.params.companyId]);
 
   useEffect(() => {
     const company = companyList.find((c) => c.id === parseInt(props.match.params.companyId, 10)) || {};
     setSingleCompany(company);
-  }, [companyList, props.match.params.companyId]);
+  }, [companyList, companyNoteList, props.match.params.companyId]);
 
   const handleControlledInputChange = (event) => {
     const newNoteContent = { ...noteContent };
