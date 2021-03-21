@@ -26,7 +26,6 @@ export const ApplicationProvider = (props) => {
       },
       body: JSON.stringify(applicationDetails),
     })
-      .then(() => getApplications())
   );
 
   // Update an application

@@ -39,20 +39,18 @@ export const JobDetails = (props) => {
   }, []);
 
   useEffect(() => {
-    if (jobNoteList.length > 0) {
-      setCurrentJobNotes(jobNoteList.filter((note) => note.job.id === parseInt(props.match.params.jobId, 10)));
-    }
-  }, [jobNoteList, props.match.params.jobId]);
+    jobNoteList && setCurrentJobNotes(jobNoteList.filter((note) => note.job.id === parseInt(props.match.params.jobId, 10)));
+  }, [jobList, jobNoteList, props.match.params.jobId]);
 
   useEffect(() => {
     const job = jobList.find((j) => j.id === parseInt(props.match.params.jobId, 10)) || {};
     setSingleJob(job);
-  }, [jobList, props.match.params.jobId]);
+  }, [jobList, jobNoteList, props.match.params.jobId]);
 
   useEffect(() => {
     const application = applicationList.find((a) => a.job.id === parseInt(props.match.params.jobId, 10)) || {};
     setJobApplication(application);
-  }, [applicationList, props.match.params.jobId]);
+  }, [jobList, applicationList, props.match.params.jobId]);
 
   const sortApplicationStatusesByCreatedAt = (statuses) => (
     statuses.sort((a, b) => (a.created_at > b.created_at ? 1 : -1))
@@ -154,10 +152,10 @@ export const JobDetails = (props) => {
                   <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                     <div className="sm:col-span-1">
                       <dt className="text-sm font-medium text-gray-500">
-                        Job
+                        Company
                       </dt>
                       <dd className="mt-1 text-sm text-gray-900 underline">
-                        {singleJob.job && <Link to={singleJob.job.url}>{singleJob.job && singleJob.job.name}</Link>}
+                        {singleJob.company && <Link to={singleJob.company.url}>{singleJob.company && singleJob.company.name}</Link>}
                       </dd>
                     </div>
                     <div className="sm:col-span-1">
@@ -359,6 +357,7 @@ export const JobDetails = (props) => {
         toggleShow={setShowConfirmActionModal}
         actionFunction={() => {
           deleteJobNote(editingNoteId)
+            .then(() => getJobs())
             .then(() => getJobNotes());
         }}
         actionName="delete"
