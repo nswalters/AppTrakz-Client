@@ -50,7 +50,7 @@ export const JobDetails = (props) => {
   useEffect(() => {
     const application = applicationList.find((a) => a.job.id === parseInt(props.match.params.jobId, 10)) || {};
     setJobApplication(application);
-  }, [applicationList, props.match.params.jobId]);
+  }, [jobList, applicationList, props.match.params.jobId]);
 
   const sortApplicationStatusesByCreatedAt = (statuses) => (
     statuses.sort((a, b) => (a.created_at > b.created_at ? 1 : -1))
