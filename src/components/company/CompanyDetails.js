@@ -35,9 +35,9 @@ export const CompanyDetails = (props) => {
   }, []);
 
   useEffect(() => {
-    if (companyNoteList.length > 0) {
-      setCurrentCompanyNotes(companyNoteList.filter((note) => note.company.id === parseInt(props.match.params.companyId, 10)));
-    }
+    // if (companyNoteList.length > 0) {
+    companyNoteList && setCurrentCompanyNotes(companyNoteList.filter((note) => note.company.id === parseInt(props.match.params.companyId, 10)));
+    // }
   }, [companyList, companyNoteList, props.match.params.companyId]);
 
   useEffect(() => {
@@ -329,8 +329,8 @@ export const CompanyDetails = (props) => {
         toggleShow={setShowConfirmActionModal}
         actionFunction={() => {
           deleteCompanyNote(editingNoteId)
-            .then(getCompanies)
-            .then(getCompanyNotes);
+            .then(() => getCompanies())
+            .then(() => getCompanyNotes());
         }}
         actionName="delete"
       />
