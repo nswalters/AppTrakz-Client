@@ -329,8 +329,8 @@ export const CompanyDetails = (props) => {
         toggleShow={setShowConfirmActionModal}
         actionFunction={() => {
           deleteCompanyNote(editingNoteId)
-            .then(getCompanyNotes)
-            .then(getCompanies);
+            .then(getCompanies)
+            .then(getCompanyNotes);
         }}
         actionName="delete"
       />
