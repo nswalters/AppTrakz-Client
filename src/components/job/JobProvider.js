@@ -7,7 +7,7 @@ export const JobProvider = (props) => {
 
   // Get jobs
   const getJobs = () => (
-    fetch('http://localhost:8000/jobs', {
+    fetch('https://apptrakz-api.herokuapp.com/jobs', {
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
       },
@@ -18,7 +18,7 @@ export const JobProvider = (props) => {
 
   // Create a new job
   const createJob = (newJobDetails) => (
-    fetch('http://localhost:8000/jobs', {
+    fetch('https://apptrakz-api.herokuapp.com/jobs', {
       method: 'POST',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
@@ -30,7 +30,7 @@ export const JobProvider = (props) => {
 
   // Update a job
   const updateJob = (jobId, newJobDetails) => (
-    fetch(`http://localhost:8000/jobs/${jobId}`, {
+    fetch(`https://apptrakz-api.herokuapp.com/jobs/${jobId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
@@ -42,7 +42,7 @@ export const JobProvider = (props) => {
 
   // Delete a job (actually a soft-delete)
   const deleteJob = (jobId) => (
-    fetch(`http://localhost:8000/jobs/${jobId}`, {
+    fetch(`https://apptrakz-api.herokuapp.com/jobs/${jobId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,

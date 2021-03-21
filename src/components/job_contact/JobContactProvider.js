@@ -7,7 +7,7 @@ export const JobContactProvider = (props) => {
 
   // Get JobContacts
   const getJobContacts = () => (
-    fetch('http://localhost:8000/job_contacts', {
+    fetch('https://apptrakz-api.herokuapp.com/job_contacts', {
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
       },
@@ -18,7 +18,7 @@ export const JobContactProvider = (props) => {
 
   // Update JobContact
   const updateJobContact = (jobContactId, newJobContact) => (
-    fetch(`http://localhost:8000/job_contacts/${jobContactId}`, {
+    fetch(`https://apptrakz-api.herokuapp.com/job_contacts/${jobContactId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
@@ -30,7 +30,7 @@ export const JobContactProvider = (props) => {
 
   // Create new JobContact
   const createJobContact = (newJobContact) => (
-    fetch('http://localhost:8000/job_contacts', {
+    fetch('https://apptrakz-api.herokuapp.com/job_contacts', {
       method: 'POST',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
@@ -42,7 +42,7 @@ export const JobContactProvider = (props) => {
 
   // Delete a job contact (actually soft-delete)
   const deleteJobContact = (jobContactId) => (
-    fetch(`http://localhost:8000/job_contacts/${jobContactId}`, {
+    fetch(`https://apptrakz-api.herokuapp.com/job_contacts/${jobContactId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,

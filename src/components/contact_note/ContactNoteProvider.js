@@ -7,7 +7,7 @@ export const ContactNoteProvider = (props) => {
 
   // Get all Contact Notes
   const getContactNotes = () => (
-    fetch('http://localhost:8000/contact_notes', {
+    fetch('https://apptrakz-api.herokuapp.com/contact_notes', {
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
       },
@@ -18,7 +18,7 @@ export const ContactNoteProvider = (props) => {
 
   // Create new Contact Note
   const createContactNote = (contactNoteDetails) => (
-    fetch('http://localhost:8000/contact_notes', {
+    fetch('https://apptrakz-api.herokuapp.com/contact_notes', {
       method: 'POST',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
@@ -30,7 +30,7 @@ export const ContactNoteProvider = (props) => {
 
   // Update Contact Note
   const updateContactNote = (contactNoteId, contactNoteDetails) => (
-    fetch(`http://localhost:8000/contact_notes/${contactNoteId}`, {
+    fetch(`https://apptrakz-api.herokuapp.com/contact_notes/${contactNoteId}`, {
       method: 'PUT',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
@@ -42,7 +42,7 @@ export const ContactNoteProvider = (props) => {
 
   // Delete a Contact Note (actually a soft-delete)
   const deleteContactNote = (contactNoteId) => (
-    fetch(`http://localhost:8000/contact_notes/${contactNoteId}`, {
+    fetch(`https://apptrakz-api.herokuapp.com/contact_notes/${contactNoteId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,

@@ -44,7 +44,7 @@ export const Dashboard = (props) => {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:8000/sankey', {
+    fetch('https://apptrakz-api.herokuapp.com/sankey', {
       headers: {
         Authorization: `Token ${localStorage.getItem('apptrakz_token')}`,
       },

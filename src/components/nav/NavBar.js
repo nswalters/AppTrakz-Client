@@ -168,11 +168,11 @@ export const NavBar = (props) => {
               </div>
             </div>
             <div className="mt-3 space-y-1">
-              <a href="/" className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">Your Profile</a>
-              <a onClick={() => {
+              <Link to="/user/profile" className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">Your Profile</Link>
+              <p onClick={() => {
                 localStorage.removeItem('apptrakz_token');
                 props.history.push({ pathname: '/' });
-              }} href="/" className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">Sign out</a>
+              }} className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">Sign out</p>
             </div>
           </div>
         </div>
