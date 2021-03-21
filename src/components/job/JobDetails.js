@@ -39,15 +39,13 @@ export const JobDetails = (props) => {
   }, []);
 
   useEffect(() => {
-    if (jobNoteList.length > 0) {
-      setCurrentJobNotes(jobNoteList.filter((note) => note.job.id === parseInt(props.match.params.jobId, 10)));
-    }
-  }, [jobNoteList, props.match.params.jobId]);
+    jobNoteList && setCurrentJobNotes(jobNoteList.filter((note) => note.job.id === parseInt(props.match.params.jobId, 10)));
+  }, [jobList, jobNoteList, props.match.params.jobId]);
 
   useEffect(() => {
     const job = jobList.find((j) => j.id === parseInt(props.match.params.jobId, 10)) || {};
     setSingleJob(job);
-  }, [jobList, props.match.params.jobId]);
+  }, [jobList, jobNoteList, props.match.params.jobId]);
 
   useEffect(() => {
     const application = applicationList.find((a) => a.job.id === parseInt(props.match.params.jobId, 10)) || {};
@@ -359,6 +357,7 @@ export const JobDetails = (props) => {
         toggleShow={setShowConfirmActionModal}
         actionFunction={() => {
           deleteJobNote(editingNoteId)
+            .then(() => getJobs())
             .then(() => getJobNotes());
         }}
         actionName="delete"
