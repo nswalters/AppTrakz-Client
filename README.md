@@ -10,6 +10,15 @@ This idea was originally spawned from my own need to track job applications, but
 
 This is when I figured that there was a greater need for a tool to support this idea and since we're all aspiring software developers, why not "make an app for that"? 
 
+## Deployed Project
+[Deployed Project](https://apptrakz-client.herokuapp.com/)
+## Technologies Used
+
+[![HTML](https://img.shields.io/badge/-HTML-2c9fcc?style=flat-square)](#) 
+[![JavaScript](https://img.shields.io/badge/-JavaScript-2c9fcc?style=flat-square)](#) 
+[![React](https://img.shields.io/badge/-React-2c9fcc?style=flat-square)](#)
+[![Django](https://img.shields.io/badge/-Django-2c9fcc?style=flat-square)](#)
+
 ## Screenshots
 
 ### Login and Registration
@@ -35,12 +44,3 @@ This is when I figured that there was a greater need for a tool to support this 
 
 ### Dashboard
 ![Updated Dashboard](./images/UpdatedDashboard.gif)
-
-## Deployed Project
-[Deployed Project](https://apptrakz-client.herokuapp.com/)
-## Technologies Used
-
-[![HTML](https://img.shields.io/badge/-HTML-2c9fcc?style=flat-square)](#) 
-[![JavaScript](https://img.shields.io/badge/-JavaScript-2c9fcc?style=flat-square)](#) 
-[![React](https://img.shields.io/badge/-React-2c9fcc?style=flat-square)](#)
-[![Django](https://img.shields.io/badge/-Django-2c9fcc?style=flat-square)](#)
