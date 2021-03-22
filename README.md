@@ -10,22 +10,34 @@ This idea was originally spawned from my own need to track job applications, but
 
 This is when I figured that there was a greater need for a tool to support this idea and since we're all aspiring software developers, why not "make an app for that"? 
 
-## Screenshot
-_App screenshot coming soon_
+## Screenshots
+
+### Login and Registration
+![Login and Registration GIF](./images/Login-Register.gif)
+
+### Profile Update
+![Profile Update](./images/ProfileUpdate.gif)
+
+### Creating a New Company and Job Record
+![New Company and Job](./images/NewCompanyJob.gif)
+
+### Edit Company Details
+![Edit Company Details](./images/CompanyEditAndDetails.gif)
+
+### Edit Job Details
+![Edit Job Details](./images/JobEditAndDetails.gif)
+
+### Update Application Timeline
+![Update Application](./images/ShowUpdateApplicationTimeline.gif)
+
+### Dashboard
+![Updated Dashboard](./images/UpdatedDashboard.gif)
 
 ## Deployed Project
-_Yet to be deployed_
-
+[Deployed Project](https://apptrakz-client.herokuapp.com/)
 ## Technologies Used
-_Yet to be fully implemented_
 
 [![HTML](https://img.shields.io/badge/-HTML-2c9fcc?style=flat-square)](#) 
 [![JavaScript](https://img.shields.io/badge/-JavaScript-2c9fcc?style=flat-square)](#) 
 [![React](https://img.shields.io/badge/-React-2c9fcc?style=flat-square)](#)
 [![Django](https://img.shields.io/badge/-Django-2c9fcc?style=flat-square)](#)
-
-## How to Run
-_Coming Soon_
-
-## How to Deploy
-_Coming Soon_
