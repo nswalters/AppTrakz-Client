@@ -30,6 +30,9 @@ This is when I figured that there was a greater need for a tool to support this 
 ### Update Application Timeline
 ![Update Application](./images/ShowUpdateApplicationTimeline.gif)
 
+### Contacts
+![Contacts](./images/Contacts.gif)
+
 ### Dashboard
 ![Updated Dashboard](./images/UpdatedDashboard.gif)
 
