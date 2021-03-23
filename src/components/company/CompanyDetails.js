@@ -123,7 +123,7 @@ export const CompanyDetails = (props) => {
                       <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <div className="py-1" role="none">
                           <Link to={`${singleCompany.url}/edit`} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit</Link>
-                          <button onClick={() => setShowConfirmActionModal(true)} type="button" className="block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-100 hover:text-gray-900" role="menuitem">Delete</button>
+                          <button onClick={() => setShowConfirmActionModal(true)} type="button" className="w-full text-left block px-4 py-2 text-sm font-bold text-red-700 hover:bg-red-100 hover:text-gray-900" role="menuitem">Delete</button>
                         </div>
                       </div>
                     </Transition>
