@@ -55,14 +55,14 @@ export const Home = (props) => (
                 <div className="mt-6">
                   <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">
                     See your application history overview.
-                    </h2>
+                  </h2>
                   <p className="mt-4 text-lg text-gray-500">
                     You've applied to tens or hundreds of jobs. Now you want to know how that search has been going. From your dashboard, view the total companies or jobs you've applied to. See how many applications are still active and how many you've submitted over the past 30 days. With the Sankey diagram, you can also see the flow of all applications you've submitted and what the results were.
-                    </p>
+                  </p>
                   <div className="mt-6">
-                    <Link to="/dashboard" className="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
+                    <Link to="/login" className="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
                       Get Started
-                      </Link>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -89,14 +89,14 @@ export const Home = (props) => (
                 <div className="mt-6">
                   <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">
                     Make better connections
-                    </h2>
+                  </h2>
                   <p className="mt-4 text-lg text-gray-500">
                     After you've applied to so many jobs, it can be hard keeping track of everyone you have spoken with. Apptrakz allows you to add job-specific contact records so that you never forget who you spoke with regarding a position. Apptrakz also allows you to make notes on those contacts so you can remember those key details that can mean all the difference.
-                    </p>
+                  </p>
                   <div className="mt-6">
-                    <Link to="/dashboard" className="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
+                    <Link to="/login" className="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
                       Get started
-                      </Link>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -118,7 +118,7 @@ export const Home = (props) => (
             </h2>
           <p className="mt-4 max-w-3xl text-lg text-purple-200">
             Quickly add companies, jobs, applications updates, or contacts.
-            </p>
+          </p>
           <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
             <div>
               <div>
@@ -133,7 +133,7 @@ export const Home = (props) => (
                 <h3 className="text-lg font-medium text-white">Unlimited Records</h3>
                 <p className="mt-2 text-base text-purple-200">
                   No matter how many companies or jobs you apply to, or people you speak with, Apptrakz has you covered.
-                  </p>
+                </p>
               </div>
             </div>
 
@@ -150,7 +150,7 @@ export const Home = (props) => (
                 <h3 className="text-lg font-medium text-white">Manage Contacts</h3>
                 <p className="mt-2 text-base text-purple-200">
                   Keep track of everyone you speak with in one place.
-                  </p>
+                </p>
               </div>
             </div>
 
@@ -167,7 +167,7 @@ export const Home = (props) => (
                 <h3 className="text-lg font-medium text-white">Full Control</h3>
                 <p className="mt-2 text-base text-purple-200">
                   If a record isn't needed any longer, you have the power to remove it.
-                  </p>
+                </p>
               </div>
             </div>
 
@@ -184,7 +184,7 @@ export const Home = (props) => (
                 <h3 className="text-lg font-medium text-white">Take Notes</h3>
                 <p className="mt-2 text-base text-purple-200">
                   Whether it's a company, job, or contact, you can take your own notes and keep track of them all in one place.
-                  </p>
+                </p>
               </div>
             </div>
           </div>
@@ -207,7 +207,9 @@ export const Home = (props) => (
               <span className="bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent">Valuable Metrics</span>
             </h2>
             <p className="mt-3 text-3xl font-extrabold text-white">Get actionable data that will help your job search</p>
-            <p className="mt-5 text-lg text-gray-300">When you are on the hunt for that next position, it can be difficult to track down where improvements might be made.</p>
+            <p className="mt-5 text-lg text-gray-300">
+              When you are on the hunt for that next position, it can be difficult to track down where improvements might be made.
+            </p>
             <p className="mt-5 text-lg text-gray-300">Our Sankey diagram plots out the flow of your applications into categories and lets you know where the majority of your prospects end up. Take your lazer focus and review those categories for anything that might boost the chances your next application results in a yes.</p>
           </div>
         </div>
