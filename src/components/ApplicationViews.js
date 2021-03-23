@@ -27,7 +27,7 @@ export const ApplicationViews = () => (
     <CompanyProvider>
       <JobProvider>
         <ApplicationProvider>
-          <Route exact path={['/', '/dashboard']}>
+          <Route exact path='/dashboard'>
             <Dashboard />
           </Route>
         </ApplicationProvider>
